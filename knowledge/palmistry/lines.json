@@ -1,0 +1,146 @@
+[
+  {
+    "id": "line.heart.strong",
+    "category": "lines",
+    "feature_key": "heart_line",
+    "qualifier": "strong",
+    "text_en": "A deep, clear heart line shows a warm, steady heart. This person loves sincerely and stays loyal. Their feelings run deep and they value honesty in relationships. They are caring and protective towards the people close to them.",
+    "text_hi": "गहरी और साफ हृदय रेखा एक गर्मजोशी भरे, स्थिर हृदय को दर्शाती है। ऐसा व्यक्ति सच्चे मन से प्रेम करता है और वफादार रहता है। उसकी भावनाएँ गहरी होती हैं और वह रिश्तों में ईमानदारी को महत्व देता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.heart.faint",
+    "category": "lines",
+    "feature_key": "heart_line",
+    "qualifier": "faint",
+    "text_en": "A faint heart line suggests a person who guards their feelings and takes time to open up. They feel deeply inside but may not show it easily. Once they trust someone, they are gentle and devoted.",
+    "text_hi": "हल्की हृदय रेखा बताती है कि व्यक्ति अपनी भावनाओं को सहेज कर रखता है और खुलने में समय लेता है। भीतर से वह गहराई से महसूस करता है पर आसानी से दिखाता नहीं। एक बार भरोसा हो जाए तो वह कोमल और समर्पित होता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.heart.forked",
+    "category": "lines",
+    "feature_key": "heart_line",
+    "qualifier": "forked",
+    "text_en": "A heart line that forks at the end is a fortunate sign. It shows balance between the head and the heart — the person loves with feeling but also with good sense. Such people make warm, understanding partners.",
+    "text_hi": "अंत में दो भागों में बँटी हृदय रेखा शुभ संकेत है। यह मन और बुद्धि के बीच संतुलन दिखाती है — व्यक्ति भावना के साथ-साथ समझदारी से भी प्रेम करता है। ऐसे लोग गर्म और समझदार जीवनसाथी बनते हैं।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.head.strong",
+    "category": "lines",
+    "feature_key": "head_line",
+    "qualifier": "strong",
+    "text_en": "A long, clear head line shows a sharp, focused mind. This person thinks clearly, plans well, and makes wise decisions. They have good memory and the patience to finish what they start.",
+    "text_hi": "लंबी और साफ मस्तिष्क रेखा तेज़ और एकाग्र दिमाग दिखाती है। ऐसा व्यक्ति साफ सोचता है, अच्छी योजना बनाता है और समझदारी से निर्णय लेता है। उसकी याददाश्त अच्छी होती है और काम पूरा करने का धैर्य भी।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.head.curved",
+    "category": "lines",
+    "feature_key": "head_line",
+    "qualifier": "curved",
+    "text_en": "A head line that curves downward shows a creative, imaginative mind. This person thinks in pictures and ideas, and often has artistic or intuitive gifts. They solve problems in their own original way.",
+    "text_hi": "नीचे की ओर मुड़ती मस्तिष्क रेखा रचनात्मक और कल्पनाशील मन दिखाती है। ऐसा व्यक्ति चित्रों और विचारों में सोचता है और अक्सर कलात्मक या सहज प्रतिभा रखता है। वह समस्याओं को अपने अनोखे तरीके से हल करता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.head.straight",
+    "category": "lines",
+    "feature_key": "head_line",
+    "qualifier": "straight",
+    "text_en": "A straight head line shows a practical, logical thinker. This person is realistic, organised, and good with facts and numbers. They prefer clear plans over guesswork and are dependable in their judgement.",
+    "text_hi": "सीधी मस्तिष्क रेखा व्यावहारिक और तार्किक सोच दिखाती है। ऐसा व्यक्ति यथार्थवादी, व्यवस्थित और तथ्यों व अंकों में निपुण होता है। वह अनुमान के बजाय स्पष्ट योजनाएँ पसंद करता है और अपने निर्णय में भरोसेमंद होता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.life.strong",
+    "category": "lines",
+    "feature_key": "life_line",
+    "qualifier": "strong",
+    "text_en": "A deep, long life line shows strong vitality and good stamina. This person has the energy to recover from setbacks and to enjoy an active life. It points to steady health and a strong will to live fully.",
+    "text_hi": "गहरी और लंबी जीवन रेखा अच्छी जीवन-शक्ति और सहनशक्ति दिखाती है। ऐसा व्यक्ति कठिनाइयों से उबरने और सक्रिय जीवन जीने की ऊर्जा रखता है। यह स्थिर स्वास्थ्य और भरपूर जीने की प्रबल इच्छा को दर्शाती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.life.faint",
+    "category": "lines",
+    "feature_key": "life_line",
+    "qualifier": "faint",
+    "text_en": "A faint life line does not mean a short life — it points to a gentler energy that is best cared for with rest, good food, and calm routines. With healthy habits, this person can enjoy steady wellbeing.",
+    "text_hi": "हल्की जीवन रेखा का अर्थ छोटा जीवन नहीं है — यह एक कोमल ऊर्जा दर्शाती है जिसे आराम, अच्छे भोजन और शांत दिनचर्या से सँभालना अच्छा रहता है। स्वस्थ आदतों के साथ ऐसा व्यक्ति स्थिर तंदुरुस्ती का आनंद ले सकता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.life.wide_curve",
+    "category": "lines",
+    "feature_key": "life_line",
+    "qualifier": "wide_curve",
+    "text_en": "A life line that sweeps wide around the thumb shows warmth, energy, and a love of life. This person is generous, sociable, and enjoys travel and new experiences. They bring liveliness to those around them.",
+    "text_hi": "अंगूठे के चारों ओर चौड़ी घूमती जीवन रेखा गर्मजोशी, ऊर्जा और जीवन के प्रति प्रेम दिखाती है। ऐसा व्यक्ति उदार, मिलनसार होता है और यात्रा व नए अनुभव पसंद करता है। वह अपने आसपास के लोगों में उत्साह भरता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.fate.strong",
+    "category": "lines",
+    "feature_key": "fate_line",
+    "qualifier": "strong",
+    "text_en": "A clear fate line running up the centre of the palm shows a focused career path and steady progress in life. This person tends to find their direction and stick to it, earning success through consistent effort.",
+    "text_hi": "हथेली के बीच ऊपर जाती साफ भाग्य रेखा एकाग्र करियर और जीवन में स्थिर प्रगति दिखाती है। ऐसा व्यक्ति अपनी दिशा पा लेता है और उस पर टिका रहता है, लगातार मेहनत से सफलता पाता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.fate.absent",
+    "category": "lines",
+    "feature_key": "fate_line",
+    "qualifier": "absent",
+    "text_en": "A missing or very faint fate line is common and not a bad sign. It often belongs to people who make their own path freely, change directions by choice, and are not tied to one fixed routine. Their success comes from self-made decisions.",
+    "text_hi": "भाग्य रेखा का न होना या बहुत हल्का होना आम बात है और कोई अशुभ संकेत नहीं। यह अक्सर उन लोगों में होती है जो स्वतंत्र रूप से अपना रास्ता बनाते हैं, अपनी मर्ज़ी से दिशा बदलते हैं और किसी एक बँधी दिनचर्या में नहीं रहते। उनकी सफलता स्वयं के निर्णयों से आती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.sun.present",
+    "category": "lines",
+    "feature_key": "sun_line",
+    "qualifier": "present",
+    "text_en": "A sun line below the ring finger is a lucky mark. It points to recognition, creativity, and the chance of fame or public appreciation. This person can shine in art, leadership, or any work that needs a personal touch.",
+    "text_hi": "अनामिका उँगली के नीचे सूर्य रेखा एक भाग्यशाली चिह्न है। यह पहचान, रचनात्मकता और प्रसिद्धि या सार्वजनिक सराहना की संभावना दर्शाती है। ऐसा व्यक्ति कला, नेतृत्व या किसी भी ऐसे काम में चमक सकता है जिसमें व्यक्तिगत स्पर्श चाहिए।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.marriage.clear",
+    "category": "lines",
+    "feature_key": "marriage_line",
+    "qualifier": "clear",
+    "text_en": "A clear, well-marked marriage line below the little finger points to a strong, lasting bond in married life. It suggests loyalty, emotional closeness, and a partnership built on understanding and respect.",
+    "text_hi": "कनिष्ठा उँगली के नीचे साफ और स्पष्ट विवाह रेखा वैवाहिक जीवन में मज़बूत और टिकाऊ बंधन दर्शाती है। यह वफादारी, भावनात्मक निकटता और समझ व सम्मान पर बने साथ का संकेत देती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.marriage.multiple",
+    "category": "lines",
+    "feature_key": "marriage_line",
+    "qualifier": "multiple",
+    "text_en": "More than one marriage line often points to deep, important relationships in life rather than literally many marriages. It can show a heart that connects strongly with others. The clearest, deepest line usually marks the most lasting bond.",
+    "text_hi": "एक से अधिक विवाह रेखाएँ अक्सर जीवन के गहरे और महत्वपूर्ण रिश्तों की ओर इशारा करती हैं, न कि सचमुच कई विवाहों की। यह एक ऐसे हृदय को दिखा सकती हैं जो दूसरों से गहराई से जुड़ता है। आमतौर पर सबसे साफ और गहरी रेखा सबसे टिकाऊ बंधन को दर्शाती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.health.absent",
+    "category": "lines",
+    "feature_key": "health_line",
+    "qualifier": "absent",
+    "text_en": "The absence of a health line is generally a good sign — it traditionally points to robust, untroubled health. This person likely has a strong constitution and recovers quickly from minor illness.",
+    "text_hi": "स्वास्थ्य रेखा का न होना आमतौर पर अच्छा संकेत है — परंपरा में यह मज़बूत और निश्चिंत स्वास्थ्य दर्शाती है। ऐसे व्यक्ति की प्रकृति प्रायः बलवान होती है और वह छोटी-मोटी बीमारी से जल्दी उबर जाता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "line.health.present",
+    "category": "lines",
+    "feature_key": "health_line",
+    "qualifier": "present",
+    "text_en": "A visible health line suggests a sensitive digestion and nervous system. It is a gentle reminder to keep regular meals, good sleep, and a calm mind. With balanced routines, this person stays well.",
+    "text_hi": "दिखने वाली स्वास्थ्य रेखा संवेदनशील पाचन और तंत्रिका तंत्र की ओर इशारा करती है। यह नियमित भोजन, अच्छी नींद और शांत मन बनाए रखने की कोमल याद दिलाती है। संतुलित दिनचर्या से ऐसा व्यक्ति स्वस्थ रहता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "id": "mount.jupiter.prominent",
+    "category": "mounts",
+    "feature_key": "mount_jupiter",
+    "qualifier": "prominent",
+    "text_en": "A well-raised mount of Jupiter (below the index finger) shows natural leadership, confidence, and ambition. This person enjoys responsibility, inspires others, and has a strong sense of self-respect and fairness.",
+    "text_hi": "तर्जनी उँगली के नीचे उभरा बृहस्पति पर्वत स्वाभाविक नेतृत्व, आत्मविश्वास और महत्वाकांक्षा दिखाता है। ऐसा व्यक्ति ज़िम्मेदारी पसंद करता है, दूसरों को प्रेरित करता है और आत्म-सम्मान व न्याय की प्रबल भावना रखता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.saturn.prominent",
+    "category": "mounts",
+    "feature_key": "mount_saturn",
+    "qualifier": "prominent",
+    "text_en": "A raised mount of Saturn (below the middle finger) shows seriousness, patience, and wisdom. This person is responsible, hardworking, and thoughtful, often drawn to deep study or quiet, steady work.",
+    "text_hi": "मध्यमा उँगली के नीचे उभरा शनि पर्वत गंभीरता, धैर्य और बुद्धिमत्ता दिखाता है। ऐसा व्यक्ति ज़िम्मेदार, मेहनती और विचारशील होता है, और अक्सर गहन अध्ययन या शांत, स्थिर कार्य की ओर झुकाव रखता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.apollo.prominent",
+    "category": "mounts",
+    "feature_key": "mount_apollo",
+    "qualifier": "prominent",
+    "text_en": "A raised mount of Apollo or Sun (below the ring finger) shows creativity, charm, and a love of beauty. This person has artistic talent and an optimistic, warm nature that draws people towards them.",
+    "text_hi": "अनामिका उँगली के नीचे उभरा सूर्य पर्वत रचनात्मकता, आकर्षण और सौंदर्य-प्रेम दिखाता है। ऐसा व्यक्ति कलात्मक प्रतिभा और आशावादी, गर्म स्वभाव रखता है जो लोगों को उसकी ओर खींचता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.mercury.prominent",
+    "category": "mounts",
+    "feature_key": "mount_mercury",
+    "qualifier": "prominent",
+    "text_en": "A raised mount of Mercury (below the little finger) shows quick wit, good communication, and a clever mind for business. This person speaks well, learns fast, and is skilled at dealing with people.",
+    "text_hi": "कनिष्ठा उँगली के नीचे उभरा बुध पर्वत तेज़ बुद्धि, अच्छी संवाद-कला और व्यापार-कुशल मन दिखाता है। ऐसा व्यक्ति अच्छा बोलता है, जल्दी सीखता है और लोगों से व्यवहार में निपुण होता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.venus.prominent",
+    "category": "mounts",
+    "feature_key": "mount_venus",
+    "qualifier": "prominent",
+    "text_en": "A full, firm mount of Venus (the base of the thumb) shows warmth, affection, and a loving nature. This person values family, enjoys beauty and comfort, and has strong vitality and a generous heart.",
+    "text_hi": "अंगूठे के आधार पर भरा और दृढ़ शुक्र पर्वत गर्मजोशी, स्नेह और प्रेमपूर्ण स्वभाव दिखाता है। ऐसा व्यक्ति परिवार को महत्व देता है, सौंदर्य व सुख का आनंद लेता है और प्रबल जीवन-शक्ति व उदार हृदय रखता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.venus.flat",
+    "category": "mounts",
+    "feature_key": "mount_venus",
+    "qualifier": "flat",
+    "text_en": "A flatter mount of Venus shows a calm, reserved approach to affection. This person expresses love through actions and reliability rather than open displays. They value peace and a steady, settled home life.",
+    "text_hi": "कम उभरा शुक्र पर्वत स्नेह के प्रति शांत और संयमित रुख दिखाता है। ऐसा व्यक्ति प्रेम को खुले प्रदर्शन के बजाय कार्यों और भरोसे से व्यक्त करता है। वह शांति और एक स्थिर, बसे हुए घरेलू जीवन को महत्व देता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.moon.prominent",
+    "category": "mounts",
+    "feature_key": "mount_moon",
+    "qualifier": "prominent",
+    "text_en": "A raised mount of the Moon (the outer base of the palm) shows imagination, intuition, and emotional depth. This person is sensitive to others' feelings, often creative or spiritual, and drawn to travel and the arts.",
+    "text_hi": "हथेली के बाहरी आधार पर उभरा चंद्र पर्वत कल्पना, अंतर्ज्ञान और भावनात्मक गहराई दिखाता है। ऐसा व्यक्ति दूसरों की भावनाओं के प्रति संवेदनशील होता है, अक्सर रचनात्मक या आध्यात्मिक होता है और यात्रा व कला की ओर आकर्षित रहता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "mount.mars.prominent",
+    "category": "mounts",
+    "feature_key": "mount_mars",
+    "qualifier": "prominent",
+    "text_en": "A well-developed mount of Mars shows courage, endurance, and inner strength. This person stays calm under pressure, defends what is right, and does not give up easily when facing challenges.",
+    "text_hi": "अच्छी तरह विकसित मंगल पर्वत साहस, सहनशक्ति और आंतरिक बल दिखाता है। ऐसा व्यक्ति दबाव में शांत रहता है, सही का साथ देता है और चुनौतियों के सामने आसानी से हार नहीं मानता।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  }
+]

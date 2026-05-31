@@ -1,0 +1,74 @@
+[
+  {
+    "id": "shape.palm.earth",
+    "category": "shapes",
+    "feature_key": "palm_shape",
+    "qualifier": "earth",
+    "text_en": "An earth hand (square palm with short fingers) shows a practical, grounded, and reliable nature. This person is hardworking, honest, and steady, with a love of nature and a calm, dependable presence.",
+    "text_hi": "पृथ्वी हाथ (चौकोर हथेली और छोटी उँगलियाँ) व्यावहारिक, स्थिर और भरोसेमंद स्वभाव दिखाता है। ऐसा व्यक्ति मेहनती, ईमानदार और स्थिर होता है, प्रकृति से प्रेम रखता है और उसकी उपस्थिति शांत व विश्वसनीय होती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.palm.air",
+    "category": "shapes",
+    "feature_key": "palm_shape",
+    "qualifier": "air",
+    "text_en": "An air hand (square palm with long fingers) shows a curious, communicative, and intelligent nature. This person loves ideas, conversation, and learning, and brings fresh thinking to whatever they do.",
+    "text_hi": "वायु हाथ (चौकोर हथेली और लंबी उँगलियाँ) जिज्ञासु, संवादप्रिय और बुद्धिमान स्वभाव दिखाता है। ऐसा व्यक्ति विचारों, बातचीत और सीखने से प्रेम करता है और जो भी करता है उसमें नई सोच लाता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.palm.fire",
+    "category": "shapes",
+    "feature_key": "palm_shape",
+    "qualifier": "fire",
+    "text_en": "A fire hand (long palm with short fingers) shows energy, enthusiasm, and a lively, confident spirit. This person is action-loving and warm, leads naturally, and inspires others with their passion.",
+    "text_hi": "अग्नि हाथ (लंबी हथेली और छोटी उँगलियाँ) ऊर्जा, उत्साह और एक जीवंत, आत्मविश्वासी भावना दिखाता है। ऐसा व्यक्ति कर्मशील और गर्म होता है, स्वाभाविक रूप से नेतृत्व करता है और अपने जोश से दूसरों को प्रेरित करता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.palm.water",
+    "category": "shapes",
+    "feature_key": "palm_shape",
+    "qualifier": "water",
+    "text_en": "A water hand (long palm with long fingers) shows sensitivity, imagination, and emotional richness. This person is caring, intuitive, and creative, with deep feelings and a gentle, artistic soul.",
+    "text_hi": "जल हाथ (लंबी हथेली और लंबी उँगलियाँ) संवेदनशीलता, कल्पना और भावनात्मक समृद्धि दिखाता है। ऐसा व्यक्ति देखभाल करने वाला, सहज और रचनात्मक होता है, गहरी भावनाओं और एक कोमल, कलात्मक आत्मा के साथ।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.thumb.flexible",
+    "category": "shapes",
+    "feature_key": "thumb",
+    "qualifier": "flexible",
+    "text_en": "A flexible thumb that bends back shows an adaptable, generous, and easy-going nature. This person adjusts well to others, is open-minded, and handles change with grace.",
+    "text_hi": "पीछे की ओर मुड़ने वाला लचीला अंगूठा अनुकूलनशील, उदार और सहज स्वभाव दिखाता है। ऐसा व्यक्ति दूसरों के साथ अच्छी तरह तालमेल बैठाता है, खुले विचारों वाला होता है और बदलाव को सहजता से सँभालता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.thumb.firm",
+    "category": "shapes",
+    "feature_key": "thumb",
+    "qualifier": "firm",
+    "text_en": "A firm, straight thumb shows willpower, determination, and a strong sense of purpose. This person stands by their decisions, has self-control, and pursues goals with steady resolve.",
+    "text_hi": "दृढ़ और सीधा अंगूठा इच्छाशक्ति, संकल्प और प्रबल उद्देश्य-भावना दिखाता है। ऐसा व्यक्ति अपने निर्णयों पर टिका रहता है, आत्म-संयम रखता है और स्थिर दृढ़ता से अपने लक्ष्यों की ओर बढ़ता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.fingers.long",
+    "category": "shapes",
+    "feature_key": "finger_length",
+    "qualifier": "long",
+    "text_en": "Long fingers show a thoughtful, detail-loving mind. This person enjoys depth, patience, and careful work, and prefers to understand things fully before acting.",
+    "text_hi": "लंबी उँगलियाँ विचारशील और बारीकियों को पसंद करने वाले मन को दिखाती हैं। ऐसा व्यक्ति गहराई, धैर्य और सावधानीपूर्ण कार्य का आनंद लेता है और कार्य करने से पहले चीज़ों को पूरी तरह समझना पसंद करता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "shape.fingers.short",
+    "category": "shapes",
+    "feature_key": "finger_length",
+    "qualifier": "short",
+    "text_en": "Short fingers show a quick, decisive mind that sees the big picture. This person acts fast, dislikes unnecessary detail, and is good at getting things moving and finishing them.",
+    "text_hi": "छोटी उँगलियाँ एक तेज़ और निर्णायक मन को दिखाती हैं जो बड़ी तस्वीर देखता है। ऐसा व्यक्ति जल्दी कार्य करता है, अनावश्यक बारीकियाँ नापसंद करता है और कामों को गति देने व पूरा करने में निपुण होता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  }
+]

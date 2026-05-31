@@ -1,0 +1,27 @@
+{
+  "name": "shubhmilan-palmistry-kb",
+  "version": 1,
+  "embeddingModel": "text-embedding-3-small",
+  "embeddingDimensions": 1536,
+  "embeddingText": "feature_key + qualifier + text_en (the string embedded for each chunk; see scripts/ingest-palmistry.ts)",
+  "table": "palmistry_knowledge",
+  "chunkSchema": {
+    "id": "stable unique slug, e.g. line.heart.strong",
+    "category": "one of: lines | mounts | signs | shapes",
+    "feature_key": "canonical feature, e.g. heart_line, mount_venus, star, palm_shape",
+    "qualifier": "observed variation, e.g. strong | faint | forked | prominent | earth",
+    "text_en": "bilingual interpretation — English",
+    "text_hi": "bilingual interpretation — Devanagari Hindi",
+    "source": "attribution string surfaced to the user"
+  },
+  "files": [
+    "lines.json",
+    "mounts.json",
+    "signs.json",
+    "shapes.json"
+  ],
+  "userSources": {
+    "dir": "sources/",
+    "note": "Drop palmistry texts (.md/.txt/.json) here. The ingestion script normalizes them into the chunkSchema above before embedding. Curated files above are always ingested; sources/ is additive."
+  }
+}

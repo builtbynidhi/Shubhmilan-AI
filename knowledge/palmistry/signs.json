@@ -1,0 +1,56 @@
+[
+  {
+    "id": "sign.star.apollo",
+    "category": "signs",
+    "feature_key": "star",
+    "qualifier": "on_apollo",
+    "text_en": "A star on the mount of Apollo (below the ring finger) is a fortunate mark of brilliance and recognition. It points to sudden success, fame, or reward through talent. Such people often shine brightly in their chosen field.",
+    "text_hi": "अनामिका उँगली के नीचे सूर्य पर्वत पर तारा प्रतिभा और पहचान का भाग्यशाली चिह्न है। यह अचानक सफलता, यश या प्रतिभा से मिलने वाले पुरस्कार की ओर इशारा करता है। ऐसे लोग अक्सर अपने क्षेत्र में चमकते हैं।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "sign.cross.generic",
+    "category": "signs",
+    "feature_key": "cross",
+    "qualifier": "generic",
+    "text_en": "A cross sign usually marks a turning point or an important lesson in life. It is not a bad omen — often it shows a moment that builds character and wisdom. Where it sits on the palm hints at the area of life it touches.",
+    "text_hi": "क्रॉस का चिह्न आमतौर पर जीवन में किसी मोड़ या महत्वपूर्ण सीख को दर्शाता है। यह कोई अशुभ संकेत नहीं — अक्सर यह ऐसा क्षण दिखाता है जो चरित्र और बुद्धि को गढ़ता है। हथेली पर इसका स्थान बताता है कि यह जीवन के किस क्षेत्र को छूता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "sign.triangle.generic",
+    "category": "signs",
+    "feature_key": "triangle",
+    "qualifier": "generic",
+    "text_en": "A clear triangle is a lucky sign of skill and good judgement. It shows a sharp mind that succeeds through cleverness and learning. On the palm it points to talent in study, science, or strategy.",
+    "text_hi": "स्पष्ट त्रिकोण कौशल और अच्छे विवेक का भाग्यशाली चिह्न है। यह एक तेज़ दिमाग दिखाता है जो चतुराई और सीखने से सफल होता है। हथेली पर यह अध्ययन, विज्ञान या रणनीति में प्रतिभा की ओर इशारा करता है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "sign.square.generic",
+    "category": "signs",
+    "feature_key": "square",
+    "qualifier": "generic",
+    "text_en": "A square is a protective sign. It shows safety during difficult times and the strength to recover from setbacks. People with this mark often come through hard moments stronger and steadier than before.",
+    "text_hi": "वर्ग एक रक्षात्मक चिह्न है। यह कठिन समय में सुरक्षा और कठिनाइयों से उबरने की शक्ति दिखाता है। इस चिह्न वाले लोग अक्सर मुश्किल पलों से पहले से अधिक मज़बूत और स्थिर होकर निकलते हैं।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "sign.island.generic",
+    "category": "signs",
+    "feature_key": "island",
+    "qualifier": "generic",
+    "text_en": "An island on a line shows a temporary period of strain or divided energy in that area of life. It is a gentle caution, not a fixed fate — with care and balance, the energy returns to its full flow afterwards.",
+    "text_hi": "किसी रेखा पर द्वीप उस जीवन-क्षेत्र में अस्थायी तनाव या बँटी हुई ऊर्जा के दौर को दिखाता है। यह एक कोमल चेतावनी है, बँधा हुआ भाग्य नहीं — सावधानी और संतुलन से ऊर्जा बाद में अपने पूर्ण प्रवाह में लौट आती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  },
+  {
+    "id": "sign.grille.generic",
+    "category": "signs",
+    "feature_key": "grille",
+    "qualifier": "generic",
+    "text_en": "A grille (criss-cross lines) shows scattered energy in that part of the palm — a reminder to focus and avoid spreading oneself too thin. Channelled well, this same energy becomes intense drive and enthusiasm.",
+    "text_hi": "जाली (आड़ी-तिरछी रेखाएँ) हथेली के उस भाग में बिखरी ऊर्जा दिखाती है — ध्यान केंद्रित करने और स्वयं को बहुत अधिक न बाँटने की याद। सही दिशा मिलने पर यही ऊर्जा गहरी लगन और उत्साह बन जाती है।",
+    "source": "Samudrik Shastra (classical palmistry tradition)"
+  }
+]
