@@ -2,9 +2,9 @@
  * Palm RAG — retrieval layer for the palm-reading feature.
  *
  * Turns the structured observations from the vision pass into retrieval queries
- * and fetches grounding knowledge from the `palm-rag-retrieve` Supabase Edge
- * Function (which embeds server-side and queries the pgvector KB). The OpenAI
- * embedding key lives in the Edge Function, never in this bundle.
+ * and fetches grounding knowledge from the `/api/rag-retrieve` Vercel function
+ * (domain: "palmistry" — embeds server-side and queries the pgvector KB). The
+ * OpenAI embedding key lives in that function, never in this bundle.
  *
  * Designed to fail soft: any error returns [] so palm reading degrades to an
  * ungrounded reading rather than breaking.
@@ -12,17 +12,9 @@
 
 import { apiFetch } from "@/lib/api";
 import type { PalmObservations } from "@/lib/palmReading";
+import type { RetrievedChunk } from "@/lib/ragTypes";
 
-export interface RetrievedChunk {
-  id: string;
-  category: string;
-  feature_key: string;
-  qualifier: string | null;
-  text_en: string;
-  text_hi: string;
-  source: string;
-  similarity: number;
-}
+export type { RetrievedChunk };
 
 const MOUNT_LABELS: Record<string, string> = {
   mount_jupiter: "mount of Jupiter",
@@ -76,9 +68,9 @@ export function buildPalmQueries(obs: PalmObservations): string[] {
 export async function retrievePalmKnowledge(queries: string[]): Promise<RetrievedChunk[]> {
   if (queries.length === 0) return [];
   try {
-    const data = await apiFetch<{ chunks: RetrievedChunk[] }>("/api/palm-rag-retrieve", {
+    const data = await apiFetch<{ chunks: RetrievedChunk[] }>("/api/rag-retrieve", {
       method: "POST",
-      body: { queries, matchCount: 4 },
+      body: { domain: "palmistry", queries, matchCount: 4 },
       public: true,
     });
     return data?.chunks ?? [];
@@ -88,10 +80,4 @@ export async function retrievePalmKnowledge(queries: string[]): Promise<Retrieve
   }
 }
 
-/** Format retrieved chunks as a knowledge block for the composition prompt. */
-export function formatKnowledgeForPrompt(chunks: RetrievedChunk[]): string {
-  if (chunks.length === 0) return "";
-  return chunks
-    .map((c, i) => `[K${i + 1}] (${c.feature_key}${c.qualifier ? `/${c.qualifier}` : ""}) ${c.text_en} — Source: ${c.source}`)
-    .join("\n");
-}
+export { formatKnowledgeForPrompt } from "@/lib/ragTypes";

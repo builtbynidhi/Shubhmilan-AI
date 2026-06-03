@@ -1,0 +1,28 @@
+{
+  "name": "shubhmilan-astrology-kb",
+  "version": 1,
+  "embeddingModel": "text-embedding-3-small",
+  "embeddingDimensions": 1536,
+  "embeddingText": "feature_key + qualifier + text_en (the string embedded for each chunk; see scripts/ingest-astrology.ts)",
+  "table": "astrology_knowledge",
+  "chunkSchema": {
+    "id": "stable unique slug, e.g. ashtakoot.nadi.meaning",
+    "category": "one of: ashtakoot | doshas | muhurta | remedies | nakshatras",
+    "feature_key": "canonical feature, e.g. nadi_koot, mangal_dosha, vivah_muhurta",
+    "qualifier": "observed variation, e.g. dosha | cancelled | high_score (or null)",
+    "text_en": "bilingual interpretation — English",
+    "text_hi": "bilingual interpretation — Devanagari Hindi",
+    "source": "attribution string surfaced to the user"
+  },
+  "files": [
+    "ashtakoot.json",
+    "doshas.json",
+    "muhurta.json",
+    "remedies.json",
+    "nakshatras.json"
+  ],
+  "userSources": {
+    "dir": "sources/",
+    "note": "Drop Jyotish texts (.md/.txt/.json) here. The ingestion script normalizes them into the chunkSchema above before embedding. Curated files above are always ingested; sources/ is additive."
+  }
+}

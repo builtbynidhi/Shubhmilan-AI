@@ -101,6 +101,28 @@ export const kundliOrders = pgTable("kundli_orders", {
   updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
+export const astrologyKnowledge = pgTable(
+  "astrology_knowledge",
+  {
+    id: text("id").primaryKey(),
+    category: text("category").notNull(),
+    featureKey: text("feature_key").notNull(),
+    qualifier: text("qualifier"),
+    textEn: text("text_en").notNull(),
+    textHi: text("text_hi").notNull(),
+    source: text("source").notNull(),
+    embedding: vector("embedding", { dimensions: 1536 }),
+    updatedAt: timestamp("updated_at", { withTimezone: true }).defaultNow().notNull(),
+  },
+  (table) => [
+    index("astrology_knowledge_category_idx").on(table.category),
+    index("astrology_knowledge_embedding_idx").using(
+      "ivfflat",
+      table.embedding.op("vector_cosine_ops")
+    ),
+  ]
+);
+
 export const palmistryKnowledge = pgTable(
   "palmistry_knowledge",
   {

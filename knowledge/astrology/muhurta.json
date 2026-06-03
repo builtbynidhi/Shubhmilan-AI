@@ -1,0 +1,128 @@
+[
+  {
+    "id": "muhurta.principles.overview",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": null,
+    "text_en": "A vivah muhurat is the auspicious window chosen for a wedding so that the marriage begins under supportive heavens. The classical method harmonises five elements — the nakshatra, the tithi, the weekday (vara), the lagna (rising sign) and the yoga-karana — along with the strength of Jupiter, Venus and the moon. When these align, the union is said to begin with blessings for harmony, prosperity and long life.",
+    "text_hi": "विवाह मुहूर्त वह शुभ समय है जो विवाह के लिए चुना जाता है ताकि दाम्पत्य सहायक आकाश के नीचे आरंभ हो। शास्त्रीय विधि पाँच तत्वों — नक्षत्र, तिथि, वार, लग्न और योग-करण — को बृहस्पति, शुक्र और चंद्र के बल के साथ सामंजस्य में लाती है। जब ये मिल जाते हैं, तब मिलन सामंजस्य, समृद्धि और दीर्घायु के आशीर्वाद के साथ आरंभ माना जाता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.nakshatra.list",
+    "category": "muhurta",
+    "feature_key": "vivah_nakshatra",
+    "qualifier": null,
+    "text_en": "Eleven nakshatras are traditionally held auspicious for marriage: Rohini, Mrigashira, Magha, Uttara Phalguni, Hasta, Swati, Anuradha, Mula, Uttara Ashadha, Uttara Bhadrapada and Revati. A wedding fixed when the moon occupies one of these stars is believed to carry steadiness and good fortune into the union. The fixed (sthira) and soft (mridu) nakshatras among them are especially prized for lasting bonds.",
+    "text_hi": "ग्यारह नक्षत्र परंपरागत रूप से विवाह के लिए शुभ माने जाते हैं: रोहिणी, मृगशिरा, मघा, उत्तरा फाल्गुनी, हस्त, स्वाति, अनुराधा, मूल, उत्तराषाढ़ा, उत्तर भाद्रपद और रेवती। जब चंद्र इनमें से किसी नक्षत्र में हो तब तय किया गया विवाह मिलन में स्थिरता और सौभाग्य लाता माना जाता है। इनमें स्थिर और मृदु नक्षत्र स्थायी बंधन के लिए विशेष रूप से मूल्यवान हैं।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.nakshatra.rohini",
+    "category": "muhurta",
+    "feature_key": "vivah_nakshatra",
+    "qualifier": "rohini",
+    "text_en": "Rohini, ruled by the moon and presided over by Brahma, is among the most cherished wedding nakshatras for its fixed and nurturing nature. It is associated with growth, beauty, fertility and domestic happiness, making it deeply favourable for beginning married life. A marriage under Rohini is traditionally said to bless the home with affection and abundance.",
+    "text_hi": "रोहिणी, जिसका स्वामी चंद्र और अधिष्ठाता ब्रह्मा हैं, अपने स्थिर और पोषक स्वभाव के कारण सबसे प्रिय विवाह नक्षत्रों में है। यह वृद्धि, सौंदर्य, उर्वरता और गृह-सुख से जुड़ी है, जो दाम्पत्य आरंभ करने के लिए इसे गहराई से शुभ बनाती है। रोहिणी में किया गया विवाह परंपरागत रूप से घर को स्नेह और समृद्धि का आशीर्वाद देता कहा जाता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.nakshatra.hasta",
+    "category": "muhurta",
+    "feature_key": "vivah_nakshatra",
+    "qualifier": "hasta",
+    "text_en": "Hasta, ruled by the moon and presided over by the Sun god Savitar, is a light and skilful nakshatra well favoured for marriage. It is associated with capability, warmth and the ability to build a home with one's own hands. A wedding under Hasta is said to bless the couple with cooperation and a cheerful, industrious household.",
+    "text_hi": "हस्त, जिसका स्वामी चंद्र और अधिष्ठाता सूर्यदेव सविता हैं, एक हल्का और निपुण नक्षत्र है जो विवाह के लिए भली-भाँति शुभ माना जाता है। यह सामर्थ्य, गर्मजोशी और अपने हाथों से घर बसाने की क्षमता से जुड़ा है। हस्त में किया गया विवाह दम्पति को सहयोग और एक प्रसन्न, परिश्रमी गृहस्थी का आशीर्वाद देता कहा जाता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.nakshatra.uttara_group",
+    "category": "muhurta",
+    "feature_key": "vivah_nakshatra",
+    "qualifier": "uttara_phalguni_ashadha_bhadrapada",
+    "text_en": "The three Uttara nakshatras — Uttara Phalguni, Uttara Ashadha and Uttara Bhadrapada — are fixed (dhruva) stars considered excellent for marriage because of their stability and permanence. Weddings under these are believed to give an enduring, dependable bond that does not waver easily. They are favoured precisely when the family wishes for a union of lasting steadiness.",
+    "text_hi": "तीन उत्तरा नक्षत्र — उत्तरा फाल्गुनी, उत्तराषाढ़ा और उत्तर भाद्रपद — स्थिर (ध्रुव) नक्षत्र हैं जो अपनी स्थिरता और स्थायित्व के कारण विवाह के लिए उत्तम माने जाते हैं। इनमें किए गए विवाह एक टिकाऊ, भरोसेमंद बंधन देते माने जाते हैं जो सहजता से नहीं डगमगाता। ये ठीक तभी अधिक पसंद किए जाते हैं जब परिवार स्थायी स्थिरता वाला मिलन चाहता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.tithi.auspicious",
+    "category": "muhurta",
+    "feature_key": "vivah_tithi",
+    "qualifier": "auspicious",
+    "text_en": "The tithis traditionally favoured for marriage are the 2nd (Dwitiya), 3rd (Tritiya), 5th (Panchami), 7th (Saptami), 10th (Dashami), 11th (Ekadashi) and 13th (Trayodashi). These growing-energy lunar days are held to support a fresh, prosperous beginning. The bright fortnight (Shukla paksha) is generally preferred over the dark fortnight for fixing the auspicious day.",
+    "text_hi": "विवाह के लिए परंपरागत रूप से शुभ मानी जाने वाली तिथियाँ हैं — द्वितीया, तृतीया, पंचमी, सप्तमी, दशमी, एकादशी और त्रयोदशी। ये बढ़ती-ऊर्जा वाली चंद्र-तिथियाँ एक नए, समृद्ध आरंभ को सहारा देती मानी जाती हैं। शुभ दिन तय करने के लिए शुक्ल पक्ष को सामान्यतः कृष्ण पक्ष की तुलना में अधिक पसंद किया जाता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.tithi.rikta",
+    "category": "muhurta",
+    "feature_key": "vivah_tithi",
+    "qualifier": "avoid_rikta",
+    "text_en": "The Rikta tithis — the 4th (Chaturthi), 9th (Navami) and 14th (Chaturdashi) — are considered empty or depleting and are avoided for marriage and other auspicious beginnings. Amavasya, the new-moon day, is likewise set aside as it lacks the supportive lunar light. Choosing a growing, well-lit tithi instead is believed to give the union vitality and good momentum.",
+    "text_hi": "रिक्ता तिथियाँ — चतुर्थी, नवमी और चतुर्दशी — रिक्त या क्षीण मानी जाती हैं और विवाह तथा अन्य शुभ आरंभों के लिए वर्जित हैं। अमावस्या, नव-चंद्र का दिन, भी छोड़ दिया जाता है क्योंकि उसमें सहायक चंद्र-प्रकाश नहीं होता। इनके बजाय एक बढ़ती, प्रकाशमान तिथि चुनना मिलन को जीवनशक्ति और शुभ गति देता माना जाता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.karana.bhadra",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "avoid_bhadra",
+    "text_en": "Bhadra, the period ruled by the Vishti karana, is strictly avoided for weddings and all auspicious work, as it is held to obstruct and spoil good beginnings. Tradition personifies Bhadra as a fierce influence whose hours must simply be passed over. Any chosen muhurat is checked to ensure it does not fall during Bhadra before the ceremony is fixed.",
+    "text_hi": "भद्रा, विष्टि करण से शासित अवधि, विवाह और सभी शुभ कार्यों के लिए कड़ाई से वर्जित है, क्योंकि इसे शुभ आरंभों में बाधा डालने और बिगाड़ने वाला माना जाता है। परंपरा भद्रा को एक उग्र प्रभाव के रूप में चित्रित करती है जिसके घंटे केवल टाल देने चाहिए। समारोह तय करने से पहले किसी भी चुने मुहूर्त को जाँचा जाता है कि वह भद्रा में न पड़े।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.kharmas.avoid",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "avoid_kharmas",
+    "text_en": "Kharmas, also called Malmas in this sense, is the period when the Sun transits Sagittarius (Dhanu) or Pisces (Meena), during which weddings are traditionally not held. In these months the Sun is said to lose its auspicious vigour for new beginnings. Families wait for the Sun to move into a favourable sign before fixing the marriage date.",
+    "text_hi": "खरमास, जिसे इस अर्थ में मलमास भी कहते हैं, वह अवधि है जब सूर्य धनु या मीन राशि में गोचर करता है, जिसके दौरान परंपरागत रूप से विवाह नहीं किए जाते। इन महीनों में सूर्य नए आरंभों के लिए अपना शुभ ओज खो देता माना जाता है। परिवार विवाह की तिथि तय करने से पहले सूर्य के किसी शुभ राशि में जाने की प्रतीक्षा करते हैं।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.chaturmas.avoid",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "avoid_chaturmas",
+    "text_en": "Chaturmas, the four sacred months from Devshayani Ekadashi to Devuthani Ekadashi when Lord Vishnu is said to rest, is traditionally set aside for austerity and devotion rather than weddings. Marriages are usually not solemnised during this period and resume joyfully once Vishnu 'awakens'. The wedding season therefore picks up again after Devuthani Ekadashi.",
+    "text_hi": "चातुर्मास, देवशयनी एकादशी से देवउठनी एकादशी तक के चार पवित्र महीने जब भगवान विष्णु विश्राम करते माने जाते हैं, परंपरागत रूप से विवाह के बजाय तप और भक्ति के लिए रखे जाते हैं। इस अवधि में विवाह सामान्यतः संपन्न नहीं होते और विष्णु के 'जागने' पर हर्षपूर्वक पुनः आरंभ होते हैं। इसलिए विवाह-ऋतु देवउठनी एकादशी के बाद फिर से गति पकड़ती है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.lagna.shuddhi",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "lagna_shuddhi",
+    "text_en": "Lagna shuddhi — the purity of the rising sign at the wedding moment — is one of the most important factors in fixing a muhurat. A clean lagna, free of malefics in the eighth and supported by benefics like Jupiter and Venus, is believed to set the very foundation of the marriage on auspicious ground. Astrologers weigh the lagna carefully so the first breath of the union is strong.",
+    "text_hi": "लग्न शुद्धि — विवाह के क्षण पर उदित राशि की पवित्रता — मुहूर्त तय करने में सबसे महत्वपूर्ण कारकों में से एक है। एक स्वच्छ लग्न, जो आठवें में पाप ग्रहों से मुक्त हो और बृहस्पति तथा शुक्र जैसे शुभ ग्रहों से समर्थित हो, विवाह की नींव को ही शुभ भूमि पर रखता माना जाता है। ज्योतिषी लग्न को सावधानी से तौलते हैं ताकि मिलन की पहली साँस मजबूत हो।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.guru_shukra.asta",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "avoid_guru_shukra_asta",
+    "text_en": "When Jupiter (Guru) or Venus (Shukra) is combust — too close to the Sun and 'set' (asta) — weddings are traditionally avoided until the planet rises again clear of the Sun. Jupiter blesses wisdom and progeny while Venus blesses love and marital happiness, so both must be visible and strong for an auspicious union. Astrologers wait out the asta period before fixing the date.",
+    "text_hi": "जब बृहस्पति (गुरु) या शुक्र अस्त हो — सूर्य के बहुत निकट होकर 'अस्त' हो जाए — तब परंपरागत रूप से विवाह तब तक टाले जाते हैं जब तक ग्रह पुनः सूर्य से दूर होकर उदित न हो जाए। बृहस्पति ज्ञान और संतान का आशीर्वाद देता है जबकि शुक्र प्रेम और दाम्पत्य-सुख का, इसलिए शुभ मिलन के लिए दोनों का दृश्य और बलवान होना आवश्यक है। ज्योतिषी तिथि तय करने से पहले अस्त-अवधि के बीत जाने की प्रतीक्षा करते हैं।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.vara.weekday",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "vara",
+    "text_en": "The weekday (vara) also shapes a vivah muhurat: Monday, Wednesday, Thursday and Friday — ruled by the gentle and benefic moon, Mercury, Jupiter and Venus — are generally favoured for weddings. Tuesday and Saturday, ruled by Mars and Saturn, are usually avoided unless other factors are strong. Choosing a benefic weekday adds a layer of supportive energy to the chosen day.",
+    "text_hi": "वार भी विवाह मुहूर्त को आकार देता है: सोमवार, बुधवार, गुरुवार और शुक्रवार — कोमल और शुभ चंद्र, बुध, बृहस्पति और शुक्र से शासित — विवाह के लिए सामान्यतः शुभ माने जाते हैं। मंगल और शनि से शासित मंगलवार और शनिवार आमतौर पर तब तक टाले जाते हैं जब तक अन्य कारक मजबूत न हों। एक शुभ वार चुनना चुने हुए दिन में सहायक ऊर्जा की एक परत जोड़ देता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  },
+  {
+    "id": "muhurta.season.favourable_months",
+    "category": "muhurta",
+    "feature_key": "vivah_muhurta",
+    "qualifier": "favourable_months",
+    "text_en": "The most favoured months for weddings are those when the Sun moves through auspicious signs and Jupiter and Venus are bright — traditionally Magha, Phalguna, Vaishakha, Jyeshtha and the post-Chaturmas months of Margashirsha. These periods carry warmth, clarity and benefic strength suited to new beginnings. The actual day is then refined within the month by nakshatra, tithi and lagna.",
+    "text_hi": "विवाह के लिए सबसे अधिक पसंद किए जाने वाले महीने वे हैं जब सूर्य शुभ राशियों से गुजरता है और बृहस्पति तथा शुक्र प्रकाशमान होते हैं — परंपरागत रूप से माघ, फाल्गुन, वैशाख, ज्येष्ठ और चातुर्मास के बाद का मार्गशीर्ष। ये अवधियाँ गर्मजोशी, स्पष्टता और शुभ बल धारण करती हैं जो नए आरंभों के अनुकूल है। फिर वास्तविक दिन महीने के भीतर नक्षत्र, तिथि और लग्न से परिष्कृत किया जाता है।",
+    "source": "Muhurta Chintamani (Daivagya Rama)"
+  }
+]

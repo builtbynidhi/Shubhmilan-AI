@@ -1,0 +1,137 @@
+[
+  {
+    "id": "dosha.mangal.definition",
+    "category": "doshas",
+    "feature_key": "mangal_dosha",
+    "qualifier": null,
+    "text_en": "Mangal dosha, also called Manglik dosha or Kuja dosha, arises when Mars sits in the 1st, 2nd, 4th, 7th, 8th or 12th house counted from the lagna, the moon or Venus. These houses govern temperament, family, home, marriage, longevity and intimacy, so Mars here is said to add intensity and impatience to married life. It is a widely discussed factor but is read with balance, never as a verdict against the match.",
+    "text_hi": "मंगल दोष, जिसे मांगलिक दोष या कुज दोष भी कहते हैं, तब उत्पन्न होता है जब मंगल लग्न, चंद्र या शुक्र से गिनकर पहले, दूसरे, चौथे, सातवें, आठवें या बारहवें भाव में स्थित हो। ये भाव स्वभाव, परिवार, घर, विवाह, आयु और घनिष्ठता को नियंत्रित करते हैं, इसलिए यहाँ मंगल दाम्पत्य में तीव्रता और अधीरता जोड़ता माना जाता है। यह व्यापक रूप से चर्चित कारक है पर इसे संतुलन से पढ़ा जाता है, कभी मेल के विरुद्ध फैसले के रूप में नहीं।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.mangal.effects",
+    "category": "doshas",
+    "feature_key": "mangal_dosha",
+    "qualifier": "effects",
+    "text_en": "Where Mangal dosha is present, tradition speaks of a fiery, energetic temperament that can bring occasional friction or impatience into married life if unbalanced. Mars is also a planet of courage, protection and devotion, so a Manglik partner is often loyal, hardworking and deeply caring. The classical caution is to match a Manglik with another Manglik so the energies balance, or to apply accepted remedies.",
+    "text_hi": "जहाँ मंगल दोष विद्यमान हो, परंपरा एक उग्र, ऊर्जावान स्वभाव की बात करती है जो असंतुलित होने पर दाम्पत्य में कभी-कभी टकराव या अधीरता ला सकता है। मंगल साहस, रक्षा और समर्पण का भी ग्रह है, इसलिए मांगलिक साथी प्रायः वफादार, परिश्रमी और गहराई से देखभाल करने वाला होता है। शास्त्रीय सावधानी यह है कि मांगलिक का मिलान किसी अन्य मांगलिक से किया जाए ताकि ऊर्जाएँ संतुलित हों, या स्वीकृत उपाय किए जाएँ।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.mangal.cancel_both",
+    "category": "doshas",
+    "feature_key": "mangal_dosha",
+    "qualifier": "cancelled_both_manglik",
+    "text_en": "The most widely accepted cancellation of Mangal dosha occurs when both partners are Manglik — the matching energies of Mars are said to neutralise each other and the dosha effectively cancels. In such pairings the couple often shares a similar drive and intensity, which becomes a strength rather than a strain. This is why families routinely seek a Manglik match for a Manglik bride or groom.",
+    "text_hi": "मंगल दोष का सबसे व्यापक रूप से स्वीकृत निरस्तीकरण तब होता है जब दोनों साथी मांगलिक हों — मंगल की मेल खाती ऊर्जाएँ एक-दूसरे को निष्प्रभावी कर देती मानी जाती हैं और दोष प्रभावी रूप से निरस्त हो जाता है। ऐसे मेल में दम्पति प्रायः समान उत्साह और तीव्रता साझा करते हैं, जो तनाव के बजाय शक्ति बन जाती है। यही कारण है कि परिवार मांगलिक वर या कन्या के लिए नियमित रूप से मांगलिक मेल खोजते हैं।",
+    "source": "Ashtakoot tradition (Manglik matching practice)"
+  },
+  {
+    "id": "dosha.mangal.cancel_sign",
+    "category": "doshas",
+    "feature_key": "mangal_dosha",
+    "qualifier": "cancelled_sign_placement",
+    "text_en": "Mangal dosha is also said to be cancelled or greatly reduced when Mars sits in its own or exalted sign — Aries and Scorpio (own), or Capricorn (exalted) — as the planet then expresses its strength positively. Several classical exceptions also reduce it when Mars falls in particular signs in the dosha houses, such as Mars in Cancer or Leo in the 4th. An experienced astrologer weighs these placements before declaring a true dosha.",
+    "text_hi": "मंगल दोष तब भी निरस्त या बहुत कम माना जाता है जब मंगल अपनी या उच्च राशि में हो — मेष और वृश्चिक (स्वराशि), या मकर (उच्च) — क्योंकि तब ग्रह अपनी शक्ति सकारात्मक रूप से व्यक्त करता है। कई शास्त्रीय अपवाद इसे तब भी कम करते हैं जब मंगल दोष-भावों में विशेष राशियों में पड़े, जैसे चौथे में कर्क या सिंह का मंगल। अनुभवी ज्योतिषी सच्चे दोष की घोषणा से पहले इन स्थितियों को तौलता है।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.mangal.cancel_age",
+    "category": "doshas",
+    "feature_key": "mangal_dosha",
+    "qualifier": "cancelled_age",
+    "text_en": "A traditional view holds that the intensity of Mangal dosha softens with age, and many astrologers consider its effect much reduced after about twenty-eight years, when Mars matures in the chart. Jupiter or Venus aspecting or sitting with Mars is also said to calm its harshness. These mitigating factors are why a Manglik label alone is never treated as the final word on a match.",
+    "text_hi": "एक परंपरागत मत यह है कि मंगल दोष की तीव्रता आयु के साथ कोमल होती है, और कई ज्योतिषी इसका प्रभाव लगभग अट्ठाईस वर्ष के बाद बहुत कम मानते हैं, जब मंगल कुंडली में परिपक्व होता है। बृहस्पति या शुक्र का मंगल पर दृष्टि या साथ होना भी इसकी कठोरता को शांत करता माना जाता है। यही शमन-कारक हैं जिनके चलते केवल मांगलिक होने को कभी मेल पर अंतिम वचन नहीं माना जाता।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.nadi.definition",
+    "category": "doshas",
+    "feature_key": "nadi_dosha",
+    "qualifier": null,
+    "text_en": "Nadi dosha arises in matchmaking when both partners share the same nadi — Aadi, Madhya or Antya — derived from their birth nakshatras, scoring zero in the Nadi koot. Of the three, same-Madhya nadi is read as the most sensitive. It is the most carefully considered matching dosha, traditionally associated with caution around health and progeny, and is always weighed alongside the full chart.",
+    "text_hi": "नाड़ी दोष मिलान में तब उत्पन्न होता है जब दोनों साथी एक ही नाड़ी — आदि, मध्य या अंत्य — साझा करें, जो उनके जन्म नक्षत्रों से निकलती है और नाड़ी कूट में शून्य अंक देती है। तीनों में समान-मध्य नाड़ी सबसे संवेदनशील पढ़ी जाती है। यह सबसे सावधानी से विचारित मिलान-दोष है, परंपरागत रूप से स्वास्थ्य और संतान के प्रति सावधानी से जुड़ा, और इसे सदा पूरी कुंडली के साथ तौला जाता है।",
+    "source": "Ashtakoot tradition (Narada Samhita)"
+  },
+  {
+    "id": "dosha.nadi.cancel_rashi",
+    "category": "doshas",
+    "feature_key": "nadi_dosha",
+    "qualifier": "cancelled_same_rashi",
+    "text_en": "A well-accepted cancellation of Nadi dosha occurs when both partners share the same moon sign (rashi) but have different nakshatras, as the differing star placements break the dosha's force. This is one of several classical Nadi dosha exceptions that an astrologer checks before treating the dosha as serious. When such a cancellation applies, the match is considered free of the Nadi concern.",
+    "text_hi": "नाड़ी दोष का एक भली-भाँति स्वीकृत निरस्तीकरण तब होता है जब दोनों साथी समान चंद्र राशि साझा करें पर उनके नक्षत्र भिन्न हों, क्योंकि भिन्न नक्षत्र-स्थिति दोष के बल को तोड़ देती है। यह कई शास्त्रीय नाड़ी दोष अपवादों में से एक है जिसे ज्योतिषी दोष को गंभीर मानने से पहले जाँचता है। जब ऐसा निरस्तीकरण लागू हो, तब मेल को नाड़ी-चिंता से मुक्त माना जाता है।",
+    "source": "Ashtakoot tradition (Narada Samhita)"
+  },
+  {
+    "id": "dosha.nadi.cancel_pada",
+    "category": "doshas",
+    "feature_key": "nadi_dosha",
+    "qualifier": "cancelled_nakshatra_pada",
+    "text_en": "Nadi dosha is also said to be cancelled when both partners share the same nakshatra but fall in different padas (quarters), as the differing padas separate their finer placements. Likewise, when the nakshatra is the same but the moon signs differ, the dosha is considered nullified. These pada-level exceptions are why precise birth details matter so much in matchmaking.",
+    "text_hi": "नाड़ी दोष तब भी निरस्त माना जाता है जब दोनों साथी समान नक्षत्र साझा करें पर भिन्न पादों (चरणों) में पड़ें, क्योंकि भिन्न पाद उनकी सूक्ष्म स्थिति को अलग कर देते हैं। इसी प्रकार, जब नक्षत्र समान हो पर चंद्र राशियाँ भिन्न हों, तब दोष निरस्त माना जाता है। यही पाद-स्तरीय अपवाद हैं जिनके कारण मिलान में सटीक जन्म-विवरण इतना महत्वपूर्ण होता है।",
+    "source": "Ashtakoot tradition (Narada Samhita)"
+  },
+  {
+    "id": "dosha.bhakoot.definition",
+    "category": "doshas",
+    "feature_key": "bhakoot_dosha",
+    "qualifier": null,
+    "text_en": "Bhakoot dosha arises in matchmaking when the partners' moon signs fall on the unfavourable 6-8, 5-9 or 2-12 axes, scoring zero in the Bhakoot koot. Tradition links these axes to caution around health, progeny and finances respectively. It is taken seriously but is among the more readily cancellable matching doshas.",
+    "text_hi": "भकूट दोष मिलान में तब उत्पन्न होता है जब साथियों की चंद्र राशियाँ अशुभ 6-8, 5-9 या 2-12 अक्षों पर पड़ें, जो भकूट कूट में शून्य अंक देती हैं। परंपरा इन अक्षों को क्रमशः स्वास्थ्य, संतान और धन के प्रति सावधानी से जोड़ती है। इसे गंभीरता से लिया जाता है पर यह अधिक सहजता से निरस्त होने वाले मिलान-दोषों में है।",
+    "source": "Ashtakoot tradition (Narada Samhita)"
+  },
+  {
+    "id": "dosha.bhakoot.cancel_lord",
+    "category": "doshas",
+    "feature_key": "bhakoot_dosha",
+    "qualifier": "cancelled_graha_maitri",
+    "text_en": "Bhakoot dosha is cancelled when the lords of the two moon signs are mutual friends, or when both signs share the same ruling planet, as the underlying planetary harmony overrides the unfavourable axis. This is why a strong Graha Maitri score so often neutralises a Bhakoot concern. When such friendship exists between the lords, astrologers generally set the dosha aside.",
+    "text_hi": "भकूट दोष तब निरस्त होता है जब दोनों चंद्र राशियों के स्वामी परस्पर मित्र हों, या जब दोनों राशियों का स्वामी एक ही ग्रह हो, क्योंकि अंतर्निहित ग्रह-सामंजस्य अशुभ अक्ष पर हावी हो जाता है। यही कारण है कि मजबूत ग्रह मैत्री अंक प्रायः भकूट-चिंता को निष्प्रभावी कर देता है। जब स्वामियों के बीच ऐसी मित्रता हो, तब ज्योतिषी सामान्यतः दोष को किनारे रख देते हैं।",
+    "source": "Ashtakoot tradition (Narada Samhita)"
+  },
+  {
+    "id": "dosha.kaalsarp.definition",
+    "category": "doshas",
+    "feature_key": "kaal_sarp_dosha",
+    "qualifier": null,
+    "text_en": "Kaal Sarp dosha forms when all seven planets are hemmed between Rahu and Ketu, the two lunar nodes, on one side of the chart. There are twelve named types — such as Anant, Kulik, Vasuki, Shankhpal, Padma and Takshak — depending on which houses Rahu and Ketu occupy. Tradition associates it with delays, sudden ups and downs and a need for extra effort, though many successful lives carry it.",
+    "text_hi": "काल सर्प दोष तब बनता है जब सातों ग्रह कुंडली के एक ओर राहु और केतु, दोनों चंद्र-गाँठों, के बीच घिर जाएँ। राहु-केतु जिन भावों में हों उसके अनुसार बारह नामित प्रकार होते हैं — जैसे अनंत, कुलिक, वासुकि, शंखपाल, पद्म और तक्षक। परंपरा इसे विलंब, अचानक उतार-चढ़ाव और अतिरिक्त प्रयास की आवश्यकता से जोड़ती है, यद्यपि कई सफल जीवन इसे धारण करते हैं।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.kaalsarp.effects",
+    "category": "doshas",
+    "feature_key": "kaal_sarp_dosha",
+    "qualifier": "effects",
+    "text_en": "Where Kaal Sarp dosha is present, classical texts speak of life moving in waves, with hard-won progress and occasional unexpected turns that build resilience and depth of character. Its effect is much reduced when the planets are strong, well-placed or supported by benefic aspects. It is read as a call to steady patience and devotion rather than a cause for fear.",
+    "text_hi": "जहाँ काल सर्प दोष विद्यमान हो, शास्त्र जीवन के लहरों में चलने की बात करते हैं, जहाँ कठिनाई से अर्जित प्रगति और कभी-कभी अप्रत्याशित मोड़ धैर्य और चरित्र की गहराई गढ़ते हैं। इसका प्रभाव तब बहुत कम होता है जब ग्रह बलवान, अच्छी स्थिति में या शुभ दृष्टियों से समर्थित हों। इसे भय का कारण नहीं, बल्कि स्थिर धैर्य और भक्ति का आह्वान माना जाता है।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.sadesati.definition",
+    "category": "doshas",
+    "feature_key": "sade_sati",
+    "qualifier": null,
+    "text_en": "Sade Sati is the roughly seven-and-a-half year period when transiting Saturn passes through the twelfth, first and second houses from the natal moon. It is one of the most talked-about transits in Vedic astrology, traditionally a time of hard work, responsibility and inner maturing. Though it carries a heavy reputation, it is also seen as a great teacher that strengthens character and brings lasting rewards through effort.",
+    "text_hi": "साढ़े साती लगभग साढ़े सात वर्ष की वह अवधि है जब गोचर का शनि जन्म-चंद्र से बारहवें, पहले और दूसरे भाव से गुजरता है। यह वैदिक ज्योतिष के सबसे चर्चित गोचरों में से एक है, परंपरागत रूप से परिश्रम, उत्तरदायित्व और आंतरिक परिपक्वता का समय। यद्यपि इसकी प्रतिष्ठा भारी है, इसे एक महान गुरु भी माना जाता है जो चरित्र को मजबूत करता है और प्रयास से स्थायी फल लाता है।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.sadesati.phases",
+    "category": "doshas",
+    "feature_key": "sade_sati",
+    "qualifier": "phases",
+    "text_en": "Sade Sati unfolds in three phases of about two and a half years each — the rising phase (Saturn in the twelfth from the moon, touching expenses and effort), the peak phase (Saturn over the moon, touching mind and health) and the setting phase (Saturn in the second, touching family and finances). The middle phase is usually felt most strongly. Each phase asks for patience, discipline and care, and rewards steady, honest work.",
+    "text_hi": "साढ़े साती लगभग ढाई-ढाई वर्ष की तीन अवस्थाओं में प्रकट होती है — आरोही अवस्था (चंद्र से बारहवें शनि, जो व्यय और प्रयास को छूती है), चरम अवस्था (चंद्र के ऊपर शनि, जो मन और स्वास्थ्य को छूती है) और अवरोही अवस्था (दूसरे भाव में शनि, जो परिवार और धन को छूती है)। मध्य अवस्था आमतौर पर सबसे प्रबल अनुभव होती है। प्रत्येक अवस्था धैर्य, अनुशासन और देखभाल माँगती है, और स्थिर, ईमानदार परिश्रम को फल देती है।",
+    "source": "Brihat Parashara Hora Shastra"
+  },
+  {
+    "id": "dosha.sadesati.effects",
+    "category": "doshas",
+    "feature_key": "sade_sati",
+    "qualifier": "effects",
+    "text_en": "During Sade Sati, tradition speaks of increased responsibility, slower results and a need for grounded patience, while well-placed Saturn can also bring elevation through sheer perseverance. Devotion, disciplined routine and service to others are the classical supports for this period. It is best understood as a season of growth rather than a misfortune, and its weight eases when Saturn is strong in the birth chart.",
+    "text_hi": "साढ़े साती के दौरान, परंपरा बढ़े हुए उत्तरदायित्व, धीमे परिणाम और स्थिर धैर्य की आवश्यकता की बात करती है, जबकि अच्छी स्थिति वाला शनि निरंतर परिश्रम से उन्नति भी ला सकता है। भक्ति, अनुशासित दिनचर्या और दूसरों की सेवा इस अवधि के शास्त्रीय सहारे हैं। इसे दुर्भाग्य के बजाय वृद्धि की ऋतु समझना सर्वोत्तम है, और जन्म कुंडली में शनि बलवान होने पर इसका भार कम हो जाता है।",
+    "source": "Brihat Parashara Hora Shastra"
+  }
+]

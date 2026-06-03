@@ -1,0 +1,200 @@
+[
+  {
+    "id": "ashtakoot.varna.meaning",
+    "category": "ashtakoot",
+    "feature_key": "varna_koot",
+    "qualifier": null,
+    "text_en": "Varna koot carries a maximum of 1 point and tests the spiritual and mental compatibility of the couple. The four varnas — Brahmin, Kshatriya, Vaishya and Shudra — are derived from the moon sign, and the match is favourable when the groom's varna is equal to or higher than the bride's. It reflects the natural temperament and ego balance between partners rather than any social standing.",
+    "text_hi": "वर्ण कूट का अधिकतम मान 1 अंक है और यह दम्पति की आध्यात्मिक एवं मानसिक अनुकूलता को परखता है। चार वर्ण — ब्राह्मण, क्षत्रिय, वैश्य और शूद्र — चंद्र राशि से निकाले जाते हैं, और मिलान तब शुभ होता है जब वर का वर्ण कन्या के बराबर या उससे ऊँचा हो। यह किसी सामाजिक स्तर का नहीं, बल्कि स्वभाव और अहं के संतुलन का सूचक है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.varna.low",
+    "category": "ashtakoot",
+    "feature_key": "varna_koot",
+    "qualifier": "low_score",
+    "text_en": "When the bride's varna is higher than the groom's, Varna koot scores zero. Traditionally this hints at a need for extra patience around ego and temperament, as the natural give-and-take of the household may need conscious effort. It is a minor koot, easily balanced by strength in the larger gunas like Bhakoot and Nadi.",
+    "text_hi": "जब कन्या का वर्ण वर से ऊँचा होता है, तब वर्ण कूट में शून्य अंक मिलते हैं। परंपरा में यह संकेत है कि अहं और स्वभाव में थोड़े अधिक धैर्य की आवश्यकता हो सकती है, क्योंकि गृहस्थी का सहज लेन-देन सजग प्रयास माँग सकता है। यह छोटा कूट है, जिसे भकूट और नाड़ी जैसे बड़े गुणों की मजबूती से सहजता से संतुलित किया जा सकता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.vashya.meaning",
+    "category": "ashtakoot",
+    "feature_key": "vashya_koot",
+    "qualifier": null,
+    "text_en": "Vashya koot carries a maximum of 2 points and measures the mutual attraction and control between partners — who naturally draws the other and how willingly each yields. Signs are grouped into five vashya classes (Chatushpad, Manav, Jalchar, Vanachar and Keet), and harmony between these groups shows a balanced, affectionate bond. A strong Vashya score promises easy emotional influence and warmth in the relationship.",
+    "text_hi": "वश्य कूट का अधिकतम मान 2 अंक है और यह दोनों साथियों के बीच आकर्षण और वशीकरण को मापता है — कौन सहज रूप से दूसरे को अपनी ओर खींचता है और प्रत्येक कितनी सहजता से झुकता है। राशियाँ पाँच वश्य वर्गों (चतुष्पद, मानव, जलचर, वनचर और कीट) में बँटी हैं, और इन वर्गों के बीच सामंजस्य संतुलित, स्नेहमय बंधन दर्शाता है। ऊँचा वश्य अंक रिश्ते में सहज भावनात्मक प्रभाव और गर्मजोशी का वचन देता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.vashya.low",
+    "category": "ashtakoot",
+    "feature_key": "vashya_koot",
+    "qualifier": "low_score",
+    "text_en": "A low Vashya score suggests that the partners belong to vashya groups that do not naturally pull towards each other, so mutual influence may take more conscious effort. It does not signal conflict, only that each may keep their independence and need to learn the other's rhythm patiently. Tenderness and open communication easily soften this.",
+    "text_hi": "कम वश्य अंक बताता है कि दोनों साथी ऐसे वश्य वर्गों के हैं जो स्वाभाविक रूप से एक-दूसरे की ओर नहीं खिंचते, इसलिए परस्पर प्रभाव में थोड़ा अधिक सजग प्रयास लग सकता है। यह कलह का संकेत नहीं, बस इतना कि प्रत्येक अपनी स्वतंत्रता बनाए रख सकता है और दूसरे की लय धैर्य से सीखनी होती है। कोमलता और खुली बातचीत इसे सहज रूप से नरम कर देती है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.tara.meaning",
+    "category": "ashtakoot",
+    "feature_key": "tara_koot",
+    "qualifier": null,
+    "text_en": "Tara koot, also called Dina koot, carries a maximum of 3 points and tests the health, longevity and good fortune of the couple. It is calculated by counting from one partner's birth nakshatra to the other's and checking the remainder against the nine taras, where benefic taras (such as Sampat, Kshema, Sadhana, Mitra and Param Mitra) bring blessings. A strong Tara score promises wellbeing and steady prosperity for the union.",
+    "text_hi": "तारा कूट, जिसे दिन कूट भी कहते हैं, का अधिकतम मान 3 अंक है और यह दम्पति के स्वास्थ्य, आयु और सौभाग्य को परखता है। इसकी गणना एक साथी के जन्म नक्षत्र से दूसरे तक गिनकर शेष को नौ ताराओं से मिलाकर की जाती है, जहाँ शुभ तारा (जैसे सम्पत, क्षेम, साधना, मित्र और परम मित्र) आशीर्वाद लाती हैं। ऊँचा तारा अंक मिलन के लिए कुशलता और स्थिर समृद्धि का वचन देता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.tara.low",
+    "category": "ashtakoot",
+    "feature_key": "tara_koot",
+    "qualifier": "low_score",
+    "text_en": "A low Tara score arises when the count falls on an inauspicious tara such as Vipat, Pratyak or Naidhana for either partner. Traditionally this is read as a gentle caution towards health and steady fortune, encouraging the couple to care for each other's wellbeing. Devotional remedies and a strong overall guna count readily uplift this.",
+    "text_hi": "कम तारा अंक तब आता है जब गणना किसी साथी के लिए विपत, प्रत्यक या नैधन जैसी अशुभ तारा पर गिरती है। परंपरा में इसे स्वास्थ्य और स्थिर भाग्य के प्रति एक कोमल सावधानी माना जाता है, जो दम्पति को एक-दूसरे की भलाई का ध्यान रखने को प्रेरित करती है। भक्तिपूर्ण उपाय और कुल मिलाकर ऊँचा गुण अंक इसे सहजता से ऊपर उठा देते हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.yoni.meaning",
+    "category": "ashtakoot",
+    "feature_key": "yoni_koot",
+    "qualifier": null,
+    "text_en": "Yoni koot carries a maximum of 4 points and tests the physical and intimate compatibility of the couple through fourteen animal yonis assigned to the nakshatras. Same-yoni pairs score the full four points, friendly animal pairs score well, and naturally hostile pairs (such as cat and rat, or lion and elephant) score low. A good Yoni score promises tenderness, mutual understanding and a contented married life.",
+    "text_hi": "योनि कूट का अधिकतम मान 4 अंक है और यह नक्षत्रों को दिए गए चौदह पशु-योनियों के माध्यम से दम्पति की शारीरिक और घनिष्ठ अनुकूलता को परखता है। समान योनि वाले जोड़े पूरे चार अंक पाते हैं, मित्र पशु-जोड़े अच्छे अंक पाते हैं, और स्वाभाविक रूप से शत्रु जोड़े (जैसे मार्जार और मूषक, या सिंह और गज) कम अंक पाते हैं। अच्छा योनि अंक कोमलता, परस्पर समझ और संतुष्ट दाम्पत्य का वचन देता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.yoni.hostile",
+    "category": "ashtakoot",
+    "feature_key": "yoni_koot",
+    "qualifier": "hostile",
+    "text_en": "When the two nakshatra yonis are natural enemies — cat and rat, cow and tiger, dog and deer, serpent and mongoose, or lion and elephant — Yoni koot scores zero or near zero. Traditionally this points to differences in temperament and intimate rhythm that need gentle patience and mutual adjustment. Warmth, respect and understanding readily smooth this over.",
+    "text_hi": "जब दोनों नक्षत्र-योनियाँ स्वाभाविक शत्रु हों — मार्जार और मूषक, गौ और व्याघ्र, श्वान और मृग, सर्प और नकुल, या सिंह और गज — तब योनि कूट में शून्य या नगण्य अंक मिलते हैं। परंपरा में यह स्वभाव और घनिष्ठ लय में अंतर का संकेत है, जिसे कोमल धैर्य और परस्पर समायोजन की आवश्यकता होती है। गर्मजोशी, सम्मान और समझ इसे सहज रूप से सँवार देते हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.graha_maitri.meaning",
+    "category": "ashtakoot",
+    "feature_key": "graha_maitri_koot",
+    "qualifier": null,
+    "text_en": "Graha Maitri koot carries a maximum of 5 points and tests the mental, intellectual and friendship compatibility of the couple through the lords of their moon signs. When the two rashi lords are mutual friends, the bond is warm and understanding; neutral lords score moderately and enemy lords score low. A strong Graha Maitri score is treasured because it sustains affection and companionship through the years.",
+    "text_hi": "ग्रह मैत्री कूट का अधिकतम मान 5 अंक है और यह चंद्र राशियों के स्वामियों के माध्यम से दम्पति की मानसिक, बौद्धिक और मैत्री-अनुकूलता को परखता है। जब दोनों राशि-स्वामी परस्पर मित्र हों, तब बंधन गर्म और समझदार होता है; सम स्वामी मध्यम अंक और शत्रु स्वामी कम अंक देते हैं। ऊँचा ग्रह मैत्री अंक अनमोल माना जाता है क्योंकि यह वर्षों तक स्नेह और सख्य बनाए रखता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.graha_maitri.low",
+    "category": "ashtakoot",
+    "feature_key": "graha_maitri_koot",
+    "qualifier": "low_score",
+    "text_en": "A low Graha Maitri score appears when the two moon-sign lords are mutual enemies, hinting at differences in thinking and outlook that may need patient understanding. Because this koot also helps cancel Bhakoot dosha, a low value here is watched a little more closely. Shared interests, open conversation and devotion to each other readily strengthen the mental bond.",
+    "text_hi": "कम ग्रह मैत्री अंक तब प्रकट होता है जब दोनों चंद्र-राशि स्वामी परस्पर शत्रु हों, जो सोच और दृष्टिकोण में अंतर का संकेत है जिसे धैर्यपूर्ण समझ की आवश्यकता हो सकती है। चूँकि यह कूट भकूट दोष को निरस्त करने में भी सहायक होता है, यहाँ कम मान पर थोड़ा अधिक ध्यान दिया जाता है। साझा रुचियाँ, खुली बातचीत और एक-दूसरे के प्रति समर्पण मानसिक बंधन को सहजता से मजबूत करते हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.gana.meaning",
+    "category": "ashtakoot",
+    "feature_key": "gana_koot",
+    "qualifier": null,
+    "text_en": "Gana koot carries a maximum of 6 points and tests the temperament and character compatibility of the couple through three ganas — Deva (divine, gentle), Manushya (human, balanced) and Rakshasa (assertive, intense). Same-gana matches and Deva-Manushya pairs score well, reflecting harmony of nature. A strong Gana score promises a peaceful home with shared values and easy understanding.",
+    "text_hi": "गण कूट का अधिकतम मान 6 अंक है और यह तीन गणों — देव (दिव्य, कोमल), मनुष्य (मानवीय, संतुलित) और राक्षस (दृढ़, तीव्र) — के माध्यम से दम्पति के स्वभाव और चरित्र की अनुकूलता को परखता है। समान गण के मेल और देव-मनुष्य जोड़े अच्छे अंक पाते हैं, जो स्वभाव के सामंजस्य को दर्शाते हैं। ऊँचा गण अंक साझा मूल्यों और सहज समझ वाले शांतिपूर्ण घर का वचन देता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.gana.deva_rakshasa",
+    "category": "ashtakoot",
+    "feature_key": "gana_koot",
+    "qualifier": "deva_rakshasa_mismatch",
+    "text_en": "A Deva-Rakshasa pairing is the lowest Gana match and scores zero, as the gentle, idealistic Deva nature meets the bold, intense Rakshasa nature. Traditionally this hints at differences in temperament and pace that ask for tolerance and mutual respect. Mature understanding, and the cancellation rules when the moon-sign lords are friendly, readily soften this difference.",
+    "text_hi": "देव-राक्षस का मेल सबसे कम गण मिलान है और इसमें शून्य अंक मिलते हैं, क्योंकि कोमल, आदर्शवादी देव स्वभाव साहसी, तीव्र राक्षस स्वभाव से मिलता है। परंपरा में यह स्वभाव और गति में अंतर का संकेत है, जो सहनशीलता और परस्पर सम्मान माँगता है। परिपक्व समझ, और चंद्र-राशि स्वामियों के मित्र होने पर निरस्तीकरण के नियम, इस अंतर को सहजता से नरम कर देते हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.bhakoot.meaning",
+    "category": "ashtakoot",
+    "feature_key": "bhakoot_koot",
+    "qualifier": null,
+    "text_en": "Bhakoot koot, also called Rashi koot, carries a maximum of 7 points and tests the prosperity, family welfare and emotional flow between the couple based on the relative position of their moon signs. Favourable distances such as 1-1, 3-11, 4-10 and 5-9 score the full points and promise growth and abundance. A strong Bhakoot is highly valued for the long-term happiness and stability of the household.",
+    "text_hi": "भकूट कूट, जिसे राशि कूट भी कहते हैं, का अधिकतम मान 7 अंक है और यह दोनों की चंद्र राशियों की सापेक्ष स्थिति के आधार पर समृद्धि, पारिवारिक कल्याण और भावनात्मक प्रवाह को परखता है। शुभ दूरियाँ जैसे 1-1, 3-11, 4-10 और 5-9 पूरे अंक पाती हैं और वृद्धि एवं समृद्धि का वचन देती हैं। ऊँचा भकूट गृहस्थी के दीर्घकालिक सुख और स्थिरता के लिए अत्यंत मूल्यवान माना जाता है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.bhakoot.axis_6_8",
+    "category": "ashtakoot",
+    "feature_key": "bhakoot_koot",
+    "qualifier": "dosha_6_8",
+    "text_en": "When the moon signs fall on the 6-8 axis (Shadashtak), Bhakoot koot scores zero and a Bhakoot dosha is noted. Classically this axis is read as a caution towards health and the smooth flow of harmony, asking for extra care and patience. The dosha is cancelled when the rashi lords are friends or the same planet, so a strong Graha Maitri eases it considerably.",
+    "text_hi": "जब चंद्र राशियाँ 6-8 अक्ष (षडाष्टक) पर पड़ती हैं, तब भकूट कूट में शून्य अंक मिलते हैं और भकूट दोष चिह्नित होता है। शास्त्रों में इस अक्ष को स्वास्थ्य और सामंजस्य के सहज प्रवाह के प्रति सावधानी के रूप में पढ़ा जाता है, जो अतिरिक्त देखभाल और धैर्य माँगता है। यह दोष तब निरस्त होता है जब राशि-स्वामी मित्र हों या एक ही ग्रह हों, इसलिए मजबूत ग्रह मैत्री इसे काफी हद तक सहज कर देती है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.bhakoot.axis_9_5",
+    "category": "ashtakoot",
+    "feature_key": "bhakoot_koot",
+    "qualifier": "dosha_9_5",
+    "text_en": "When the moon signs lie on the 5-9 axis in the unfavourable Navam-Pancham form, Bhakoot koot scores zero. Tradition reads this as a caution towards progeny and family expansion, encouraging the couple towards patience and devotion. Like all Bhakoot doshas it is cancelled when the two rashi lords are mutual friends or are the same planet.",
+    "text_hi": "जब चंद्र राशियाँ अशुभ नवम-पंचम रूप में 5-9 अक्ष पर हों, तब भकूट कूट में शून्य अंक मिलते हैं। परंपरा इसे संतान और पारिवारिक विस्तार के प्रति सावधानी मानती है, जो दम्पति को धैर्य और भक्ति की ओर प्रेरित करती है। सभी भकूट दोषों की तरह यह भी तब निरस्त होता है जब दोनों राशि-स्वामी परस्पर मित्र हों या एक ही ग्रह हों।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.bhakoot.axis_2_12",
+    "category": "ashtakoot",
+    "feature_key": "bhakoot_koot",
+    "qualifier": "dosha_2_12",
+    "text_en": "When the moon signs fall on the 2-12 axis (Dwidwadash), Bhakoot koot scores zero. Classically this is associated with finances and the steady flow of resources in the household, asking the couple to manage matters thoughtfully together. It is fully cancelled when the rashi lords are friends or identical, so a good Graha Maitri removes most of its weight.",
+    "text_hi": "जब चंद्र राशियाँ 2-12 अक्ष (द्विद्र्वादश) पर पड़ती हैं, तब भकूट कूट में शून्य अंक मिलते हैं। शास्त्रों में इसका संबंध धन और गृहस्थी में संसाधनों के स्थिर प्रवाह से है, जो दम्पति से मिलकर सोच-समझकर व्यवस्था करने को कहता है। यह तब पूरी तरह निरस्त होता है जब राशि-स्वामी मित्र हों या समान हों, इसलिए अच्छी ग्रह मैत्री इसका अधिकांश भार हटा देती है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.nadi.meaning",
+    "category": "ashtakoot",
+    "feature_key": "nadi_koot",
+    "qualifier": null,
+    "text_en": "Nadi koot carries the highest maximum of 8 points and is considered the most important guna, testing the health, vitality and progeny of the couple through three nadis — Aadi (Vata), Madhya (Pitta) and Antya (Kapha). When the two partners have different nadis the match scores the full eight points and is deeply auspicious. Different nadis are seen as a sign of healthy children and a thriving family line.",
+    "text_hi": "नाड़ी कूट का अधिकतम मान सबसे अधिक 8 अंक है और इसे सबसे महत्वपूर्ण गुण माना जाता है, जो तीन नाड़ियों — आदि (वात), मध्य (पित्त) और अंत्य (कफ) — के माध्यम से दम्पति के स्वास्थ्य, जीवनशक्ति और संतान को परखता है। जब दोनों साथियों की नाड़ी भिन्न हो तब मिलान पूरे आठ अंक पाता है और गहराई से शुभ होता है। भिन्न नाड़ी स्वस्थ संतान और फलते-फूलते वंश का संकेत मानी जाती है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.nadi.dosha",
+    "category": "ashtakoot",
+    "feature_key": "nadi_koot",
+    "qualifier": "dosha",
+    "text_en": "When both partners share the same nadi, Nadi koot scores zero and a Nadi dosha is noted — the most carefully watched mismatch in Guna Milan. Tradition associates it with caution around health and progeny, especially when both are of the same nadi class. However, it is cancelled when the partners share the same moon sign with different nakshatras, or the same nakshatra with different padas, and remedies are widely accepted.",
+    "text_hi": "जब दोनों साथियों की नाड़ी समान हो, तब नाड़ी कूट में शून्य अंक मिलते हैं और नाड़ी दोष चिह्नित होता है — गुण मिलान में सबसे सावधानी से देखा जाने वाला बेमेल। परंपरा इसे स्वास्थ्य और संतान के प्रति सावधानी से जोड़ती है, विशेषकर जब दोनों एक ही नाड़ी वर्ग के हों। फिर भी यह तब निरस्त होता है जब साथी समान चंद्र राशि पर भिन्न नक्षत्र रखते हों, या समान नक्षत्र पर भिन्न पाद रखते हों, और इसके उपाय व्यापक रूप से स्वीकृत हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.score.under18",
+    "category": "ashtakoot",
+    "feature_key": "guna_milan_score",
+    "qualifier": "under_18",
+    "text_en": "A total Guna Milan score below 18 out of 36 is traditionally considered not recommended for marriage, as the natural compatibility is judged weak. Elders usually suggest reviewing the match closely and, where there is sincere intent, consulting an experienced astrologer for the full chart rather than the points alone. Many such matches still succeed with strong individual charts, mutual love and remedies.",
+    "text_hi": "36 में से 18 अंक से कम का कुल गुण मिलान परंपरागत रूप से विवाह के लिए अनुशंसित नहीं माना जाता, क्योंकि स्वाभाविक अनुकूलता कमजोर आँकी जाती है। बड़े-बुजुर्ग आमतौर पर मेल को बारीकी से देखने और, सच्चे भाव होने पर, केवल अंकों के बजाय पूरी कुंडली के लिए अनुभवी ज्योतिषी से परामर्श का सुझाव देते हैं। ऐसे कई मेल मजबूत व्यक्तिगत कुंडली, परस्पर प्रेम और उपायों से भी सफल होते हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.score.18to24",
+    "category": "ashtakoot",
+    "feature_key": "guna_milan_score",
+    "qualifier": "18_to_24",
+    "text_en": "A total score between 18 and 24 out of 36 is considered acceptable and the match is generally approved for marriage. It shows a workable foundation of compatibility where love, understanding and effort will carry the relationship well. Any specific dosha among the gunas should still be reviewed and balanced through the wider chart.",
+    "text_hi": "36 में से 18 से 24 अंक के बीच का कुल अंक स्वीकार्य माना जाता है और मेल को विवाह के लिए सामान्यतः अनुमोदित किया जाता है। यह अनुकूलता की एक व्यावहारिक नींव दर्शाता है जहाँ प्रेम, समझ और प्रयास रिश्ते को भली-भाँति आगे ले जाते हैं। गुणों में किसी विशेष दोष को फिर भी व्यापक कुंडली के माध्यम से देखकर संतुलित करना चाहिए।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.score.25to32",
+    "category": "ashtakoot",
+    "feature_key": "guna_milan_score",
+    "qualifier": "25_to_32",
+    "text_en": "A total score between 25 and 32 out of 36 is regarded as a very good match with strong natural compatibility across the gunas. Such a union promises warmth, understanding and steadiness, with the couple sharing temperament, values and emotional rhythm. This is the band most families are delighted to see.",
+    "text_hi": "36 में से 25 से 32 अंक के बीच का कुल अंक गुणों में मजबूत स्वाभाविक अनुकूलता वाला बहुत अच्छा मेल माना जाता है। ऐसा मिलन गर्मजोशी, समझ और स्थिरता का वचन देता है, जहाँ दम्पति स्वभाव, मूल्यों और भावनात्मक लय में साझेदारी रखते हैं। यही वह श्रेणी है जिसे देखकर अधिकांश परिवार प्रसन्न होते हैं।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  },
+  {
+    "id": "ashtakoot.score.33to36",
+    "category": "ashtakoot",
+    "feature_key": "guna_milan_score",
+    "qualifier": "33_to_36",
+    "text_en": "A total score between 33 and 36 out of 36 is an exceptional and rare match, considered the most blessed in Guna Milan. It shows near-perfect harmony of mind, body, temperament and fortune between the partners. Tradition treasures such a union as a foundation for a deeply loving and prosperous married life.",
+    "text_hi": "36 में से 33 से 36 अंक के बीच का कुल अंक एक असाधारण और दुर्लभ मेल है, जिसे गुण मिलान में सबसे शुभ माना जाता है। यह दोनों साथियों के बीच मन, शरीर, स्वभाव और भाग्य के लगभग पूर्ण सामंजस्य को दर्शाता है। परंपरा ऐसे मिलन को गहराई से प्रेममय और समृद्ध दाम्पत्य की नींव के रूप में अनमोल मानती है।",
+    "source": "Ashtakoot Guna Milan tables (Narada Samhita tradition)"
+  }
+]
