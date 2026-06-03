@@ -37,9 +37,15 @@ export interface CompatibilityResult {
   mangalNote: string;
   /** Remedies / suggestions if score is low */
   remedies: string[];
+  /** True when the narrative was grounded in the classical knowledge base */
+  grounded?: boolean;
+  /** Source attributions of the retrieved knowledge chunks */
+  sources?: string[];
 }
 
 export interface PartnerDetails {
   fullName: string;
+  /** Birth nakshatra e.g. "Rohini" — primary input for Ashtakoot */
+  nakshatra: string;
   rashi: string;        // Moon sign e.g. "Mesh" / "Aries"
 }

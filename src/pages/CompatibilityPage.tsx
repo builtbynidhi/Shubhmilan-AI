@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { checkCompatibility } from "@/lib/compatibility";
+import { NAKSHATRAS, RASHIS as JYOTISH_RASHIS } from "@/lib/jyotish/nakshatra";
 import type { CompatibilityResult, PartnerDetails } from "@/types/compatibility.types";
 
 // ─── Rashi list ──────────────────────────────────────────────────────────────
@@ -34,10 +35,12 @@ const L = {
     title: "Kundli Matching (कुंडली मिलान)",
     subtitle: "Ashtakoot Guna Milan",
     heroTitle: "Check Your Compatibility",
-    heroDesc: "Select the Rashi (Moon Sign) of both partners for a complete Ashtakoot Guna Milan analysis — the traditional Vedic compatibility check used for centuries.",
+    heroDesc: "Select the birth Nakshatra of both partners for a complete Ashtakoot Guna Milan — computed from the classical 36-guna tables used by pandits for centuries.",
     partner1: "Partner 1 — Groom (वर)",
     partner2: "Partner 2 — Bride (वधू)",
     fullName: "Full Name",
+    nakshatra: "Nakshatra (नक्षत्र)",
+    selectNakshatra: "Select Nakshatra…",
     rashi: "Rashi (राशि)",
     selectRashi: "Select Rashi…",
     checkBtn: "Check Compatibility (मिलान जाँचें)",
@@ -51,7 +54,7 @@ const L = {
     muhurt: "Auspicious Marriage Dates (शुभ मुहूर्त)",
     mangalNote: "Mangal Dosha Note",
     remedies: "Suggested Remedies",
-    disclaimer: "This compatibility check is AI-generated based on Vedic Jyotish principles. For authoritative guidance, please consult a qualified Jyotish pandit.",
+    disclaimer: "Guna scores and muhurat dates are computed from classical Ashtakoot tables and panchang astronomy; the analysis is AI-written. For authoritative guidance, please consult a qualified Jyotish pandit.",
     langEn: "English",
     langHi: "हिंदी",
   },
@@ -59,10 +62,12 @@ const L = {
     title: "कुंडली मिलान (Kundli Matching)",
     subtitle: "अष्टकूट गुण मिलान",
     heroTitle: "अपनी अनुकूलता जाँचें",
-    heroDesc: "दोनों साथियों की राशि चुनें — पारंपरिक वैदिक अष्टकूट गुण मिलान के लिए।",
+    heroDesc: "दोनों साथियों का जन्म नक्षत्र चुनें — शास्त्रीय 36-गुण तालिकाओं से अष्टकूट गुण मिलान के लिए।",
     partner1: "साथी 1 — वर (Groom)",
     partner2: "साथी 2 — वधू (Bride)",
     fullName: "पूरा नाम",
+    nakshatra: "नक्षत्र (Nakshatra)",
+    selectNakshatra: "नक्षत्र चुनें…",
     rashi: "राशि (Rashi)",
     selectRashi: "राशि चुनें…",
     checkBtn: "अनुकूलता जाँचें",
@@ -76,7 +81,7 @@ const L = {
     muhurt: "शुभ विवाह मुहूर्त",
     mangalNote: "मंगल दोष टिप्पणी",
     remedies: "सुझाए गए उपाय",
-    disclaimer: "यह अनुकूलता जाँच वैदिक ज्योतिष सिद्धांतों पर आधारित AI द्वारा तैयार की गई है। प्रामाणिक मार्गदर्शन के लिए किसी योग्य ज्योतिषी से परामर्श लें।",
+    disclaimer: "गुण अंक और मुहूर्त तिथियाँ शास्त्रीय अष्टकूट तालिकाओं व पंचांग गणना से निकाली गई हैं; विश्लेषण AI द्वारा लिखा गया है। प्रामाणिक मार्गदर्शन के लिए किसी योग्य ज्योतिषी से परामर्श लें।",
     langEn: "English",
     langHi: "हिंदी",
   },
@@ -99,6 +104,29 @@ function RashiSelect({ value, onChange, placeholder, lang }: {
         {RASHIS.map((r) => (
           <option key={r.value} value={r.value} className="bg-[var(--color-surface)] text-white">
             {r.emoji} {lang === "hi" ? `${r.hindi} (${r.english})` : `${r.english} (${r.hindi})`}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+// ─── Nakshatra Select ────────────────────────────────────────────────────────
+function NakshatraSelect({ value, onChange, placeholder, lang }: {
+  value: string; onChange: (v: string) => void; placeholder: string; lang: Lang;
+}) {
+  return (
+    <div className="relative">
+      <ChevronDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-accent)]/40" />
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full appearance-none rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 pr-10 text-sm text-white transition-colors focus:border-[var(--color-accent)]/40 focus:outline-none focus:ring-1 focus:ring-[var(--color-accent)]/30"
+      >
+        <option value="" disabled className="bg-[var(--color-surface)] text-[var(--color-text-muted)]">{placeholder}</option>
+        {NAKSHATRAS.map((n) => (
+          <option key={n.name} value={n.name} className="bg-[var(--color-surface)] text-white">
+            {lang === "hi" ? `${n.nameHi} (${n.name})` : `${n.name} (${n.nameHi})`}
           </option>
         ))}
       </select>
@@ -186,6 +214,7 @@ function PartnerForm({
   label,
   emoji,
   name, setName,
+  nakshatra, setNakshatra,
   rashi, setRashi,
   t,
   lang,
@@ -193,6 +222,7 @@ function PartnerForm({
   label: string;
   emoji: string;
   name: string; setName: (v: string) => void;
+  nakshatra: string; setNakshatra: (v: string) => void;
   rashi: string; setRashi: (v: string) => void;
   t: typeof L.en;
   lang: Lang;
@@ -216,6 +246,12 @@ function PartnerForm({
       </div>
       <div className="space-y-1.5">
         <Label className="flex items-center gap-2 text-sm font-medium text-white/80">
+          <Sparkles className="h-3.5 w-3.5 text-[var(--color-accent)]/60" /> {t.nakshatra}
+        </Label>
+        <NakshatraSelect value={nakshatra} onChange={setNakshatra} placeholder={t.selectNakshatra} lang={lang} />
+      </div>
+      <div className="space-y-1.5">
+        <Label className="flex items-center gap-2 text-sm font-medium text-white/80">
           <Star className="h-3.5 w-3.5 text-[var(--color-accent)]/60" /> {t.rashi}
         </Label>
         <RashiSelect value={rashi} onChange={setRashi} placeholder={t.selectRashi} lang={lang} />
@@ -228,11 +264,28 @@ function PartnerForm({
 export default function CompatibilityPage() {
   // Partner 1 state
   const [p1Name, setP1Name] = useState("");
+  const [p1Nakshatra, setP1Nakshatra] = useState("");
   const [p1Rashi, setP1Rashi] = useState("");
 
   // Partner 2 state
   const [p2Name, setP2Name] = useState("");
+  const [p2Nakshatra, setP2Nakshatra] = useState("");
   const [p2Rashi, setP2Rashi] = useState("");
+
+  // Picking a nakshatra auto-fills its majority-pada rashi (user can override
+  // if their pada falls in the adjacent sign).
+  function deriveRashi(nakshatraName: string): string {
+    const nak = NAKSHATRAS.find((n) => n.name === nakshatraName);
+    return nak ? JYOTISH_RASHIS[nak.rashiIndex].name : "";
+  }
+  function pickP1Nakshatra(v: string) {
+    setP1Nakshatra(v);
+    setP1Rashi(deriveRashi(v));
+  }
+  function pickP2Nakshatra(v: string) {
+    setP2Nakshatra(v);
+    setP2Rashi(deriveRashi(v));
+  }
 
   // Result state
   const [loading, setLoading] = useState(false);
@@ -253,8 +306,8 @@ export default function CompatibilityPage() {
   const t = L[lang];
 
   const canSubmit =
-    p1Name.trim() && p1Rashi &&
-    p2Name.trim() && p2Rashi;
+    p1Name.trim() && p1Nakshatra && p1Rashi &&
+    p2Name.trim() && p2Nakshatra && p2Rashi;
 
   async function handleCheck() {
     if (!canSubmit) return;
@@ -264,10 +317,12 @@ export default function CompatibilityPage() {
     try {
       const partner1: PartnerDetails = {
         fullName: p1Name.trim(),
+        nakshatra: p1Nakshatra,
         rashi: p1Rashi,
       };
       const partner2: PartnerDetails = {
         fullName: p2Name.trim(),
+        nakshatra: p2Nakshatra,
         rashi: p2Rashi,
       };
       const data = await checkCompatibility(partner1, partner2);
@@ -353,12 +408,14 @@ export default function CompatibilityPage() {
                 <PartnerForm
                   label={t.partner1} emoji="🤵"
                   name={p1Name} setName={setP1Name}
+                  nakshatra={p1Nakshatra} setNakshatra={pickP1Nakshatra}
                   rashi={p1Rashi} setRashi={setP1Rashi}
                   t={t} lang={lang}
                 />
                 <PartnerForm
                   label={t.partner2} emoji="👰"
                   name={p2Name} setName={setP2Name}
+                  nakshatra={p2Nakshatra} setNakshatra={pickP2Nakshatra}
                   rashi={p2Rashi} setRashi={setP2Rashi}
                   t={t} lang={lang}
                 />
