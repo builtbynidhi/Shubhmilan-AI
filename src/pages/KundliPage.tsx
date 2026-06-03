@@ -426,6 +426,12 @@ export default function KundliPage() {
   const [gender, setGender] = useState<"male" | "female" | "other" | "">("");
   const [coords, setCoords] = useState<{ lat: number; lon: number } | null>(null);
 
+  // Birth date bounds: no future dates (today is the upper limit), max 120 years back.
+  const _pad = (n: number) => String(n).padStart(2, "0");
+  const _now = new Date();
+  const maxDob = `${_now.getFullYear()}-${_pad(_now.getMonth() + 1)}-${_pad(_now.getDate())}`;
+  const minDob = `${_now.getFullYear() - 120}-${_pad(_now.getMonth() + 1)}-${_pad(_now.getDate())}`;
+
   // Result state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -560,8 +566,22 @@ export default function KundliPage() {
                       <Input
                         type="date"
                         value={dob}
-                        onChange={(e) => setDob(e.target.value)}
-                        className="border-white/10 bg-white/5 text-white"
+                        min={minDob}
+                        max={maxDob}
+                        // Calendar-only input: block all typing so unrealistic
+                        // years can't be keyed in; the picker enforces min/max.
+                        onKeyDown={(e) => {
+                          if (e.key !== "Tab" && e.key !== "Escape") e.preventDefault();
+                        }}
+                        onClick={(e) => e.currentTarget.showPicker?.()}
+                        onChange={(e) => {
+                          // Safety net in case a browser still lets a value through.
+                          const v = e.target.value;
+                          if (v && v > maxDob) setDob(maxDob);
+                          else if (v && v < minDob) setDob(minDob);
+                          else setDob(v);
+                        }}
+                        className="cursor-pointer border-white/10 bg-white/5 text-white"
                       />
                     </div>
                     <div className="space-y-1.5">

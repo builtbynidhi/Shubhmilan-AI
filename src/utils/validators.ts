@@ -10,7 +10,18 @@ export const personalInfoSchema = z.object({
   photoUrl: z.string().optional(),
   secondPhotoUrl: z.string().optional(),
   fullName: z.string().min(2, "Name must be at least 2 characters").max(100),
-  dateOfBirth: z.string().min(1, "Date of birth is required"),
+  dateOfBirth: z
+    .string()
+    .min(1, "Date of birth is required")
+    .refine((s) => {
+      const t = new Date(s).getTime();
+      return !Number.isNaN(t) && t <= Date.now();
+    }, "Date of birth cannot be in the future")
+    .refine((s) => {
+      const t = new Date(s).getTime();
+      const hundredYearsAgo = Date.now() - 100 * 365.25 * 86400_000;
+      return Number.isNaN(t) || t >= hundredYearsAgo;
+    }, "Please enter a realistic date of birth"),
   age: z.number().min(18, "Must be at least 18 years old").max(100),
   height: z.string().min(1, "Height is required"),
   weight: z.number().optional(),
@@ -94,7 +105,7 @@ export const aboutInfoSchema = z.object({
 
 export const contactInfoSchema = z.object({
   contactName: z.string().min(2, "Contact name is required"),
-  phone: z.string().min(10, "Valid phone number is required").max(15),
+  phone: z.string().regex(/^\d{10}$/, "Enter a valid 10-digit phone number"),
   email: z.string().email("Please enter a valid email"),
   address: z.string().min(5, "Address is required"),
   city: z.string().min(2, "City is required"),
@@ -104,7 +115,13 @@ export const contactInfoSchema = z.object({
 
 export const kundliFormSchema = z.object({
   subjectName: z.string().min(2, "Name is required"),
-  birthDate: z.string().min(1, "Birth date is required"),
+  birthDate: z
+    .string()
+    .min(1, "Birth date is required")
+    .refine((s) => {
+      const t = new Date(s).getTime();
+      return !Number.isNaN(t) && t <= Date.now();
+    }, "Birth date cannot be in the future"),
   birthTime: z.string().optional(),
   birthPlace: z.string().min(2, "Birth place is required"),
   chartStyle: z.enum(["north_indian", "south_indian"]),

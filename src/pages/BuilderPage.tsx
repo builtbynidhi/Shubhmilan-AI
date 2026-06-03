@@ -319,7 +319,17 @@ function PhotoUploader({
       <div className="flex items-center gap-4">
         {value ? (
           <div className="relative h-40 w-32 flex-shrink-0 overflow-hidden rounded-xl border-2 border-[var(--color-accent)]/50 shadow-md">
-            <img src={value} alt="preview" className="h-full w-full object-cover" />
+            <img
+              src={value}
+              alt="preview"
+              className="h-full w-full object-cover"
+              onError={() => {
+                // Stale/corrupt stored value (e.g. old localStorage) — clear so the
+                // upload placeholder shows instead of a broken-image icon.
+                setErr("Pichhli photo load nahi hui — dobara upload karein.");
+                onChange("");
+              }}
+            />
           </div>
         ) : (
           <div className="flex h-28 w-24 flex-shrink-0 items-center justify-center rounded-xl border-2 border-dashed border-white/20 bg-white/5 text-white/30">
@@ -354,7 +364,7 @@ function PhotoUploader({
 // ─── Step 1: Personal ────────────────────────────────────────────────────────
 function Step1Personal({ onNext }: { onNext: () => void }) {
   const { personal, updatePersonal } = useBuilderStore();
-  const { register, handleSubmit, control, watch, setValue, formState: { errors } } = useForm<PersonalForm>({
+  const { register, handleSubmit, control, watch, setValue, trigger, formState: { errors } } = useForm<PersonalForm>({
     resolver: zodResolver(personalInfoSchema),
     defaultValues: { ...personal, extraFields: personal.extraFields ?? [] },
   });
@@ -376,6 +386,12 @@ function Step1Personal({ onNext }: { onNext: () => void }) {
     if (m < 0 || (m === 0 && now.getDate() < d.getDate())) a--;
     setValue("age", a, { shouldValidate: true });
   }, [dob, setValue]);
+
+  // DOB bounds: no future dates (today is the upper limit), and not older than 100 years.
+  const pad = (n: number) => String(n).padStart(2, "0");
+  const todayDate = new Date();
+  const maxDob = `${todayDate.getFullYear()}-${pad(todayDate.getMonth() + 1)}-${pad(todayDate.getDate())}`;
+  const minDob = `${todayDate.getFullYear() - 100}-${pad(todayDate.getMonth() + 1)}-${pad(todayDate.getDate())}`;
 
   function onSubmit(data: PersonalForm) {
     updatePersonal(data as PersonalInfo);
@@ -439,7 +455,32 @@ function Step1Personal({ onNext }: { onNext: () => void }) {
         </Field>
 
         <Field label="Date of Birth *" error={errors.dateOfBirth?.message}>
-          <Input type="date" className="bg-white/5 text-white" {...register("dateOfBirth")} />
+          {(() => {
+            const dobReg = register("dateOfBirth");
+            return (
+              <Input
+                type="date"
+                min={minDob}
+                max={maxDob}
+                className="cursor-pointer bg-white/5 text-white"
+                {...dobReg}
+                // Calendar-only input: block all typing so unrealistic years
+                // (e.g. "6786") can't be keyed in; the picker enforces min/max.
+                onKeyDown={(e) => {
+                  if (e.key !== "Tab" && e.key !== "Escape") e.preventDefault();
+                }}
+                onClick={(e) => e.currentTarget.showPicker?.()}
+                onChange={(e) => {
+                  // Safety net in case a browser still lets a value through.
+                  const v = e.target.value;
+                  if (v && v > maxDob) e.target.value = maxDob;
+                  else if (v && v < minDob) e.target.value = minDob;
+                  dobReg.onChange(e);
+                  void trigger("dateOfBirth");
+                }}
+              />
+            );
+          })()}
         </Field>
 
         <Field label="Age *" error={errors.age?.message}>
@@ -1251,12 +1292,24 @@ function Step5Contact({ onNext, onPrev }: { onNext: () => void; onPrev: () => vo
           />
         </Field>
         <Field label="Phone Number" error={errors.phone?.message}>
-          <Input
-            {...register("phone")}
-            placeholder="+91 98765 43210"
-            type="tel"
-            className="bg-white/5 text-white"
-          />
+          {(() => {
+            const phoneReg = register("phone");
+            return (
+              <Input
+                {...phoneReg}
+                onChange={(e) => {
+                  // Keep digits only, cap at 10 (Indian mobile) — blocks >10 chars as you type
+                  e.target.value = e.target.value.replace(/\D/g, "").slice(0, 10);
+                  phoneReg.onChange(e);
+                }}
+                placeholder="9876543210"
+                type="tel"
+                inputMode="numeric"
+                maxLength={10}
+                className="bg-white/5 text-white"
+              />
+            );
+          })()}
         </Field>
       </div>
 
