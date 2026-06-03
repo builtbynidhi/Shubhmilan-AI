@@ -1,10 +1,21 @@
 /**
- * Kundli API — uses Groq for Vedic birth chart generation
- * and OpenStreetMap Nominatim for geocoding.
+ * Kundli API — deterministic chart (real astronomy) + AI narrative.
+ *
+ * The birth chart (graha positions, lagna, houses, doshas) is computed locally
+ * by src/lib/jyotish/chart.ts using astronomy-engine with the Lahiri ayanamsa —
+ * the same panchang/ephemeris approach pandits use, so the same birth details
+ * always produce the same chart. Groq only writes the warm bilingual
+ * explanations around these computed facts (grounded in the classical KB via
+ * astroRag when available) — it never invents positions or dosha statuses.
+ *
+ * Geocoding uses OpenStreetMap Nominatim. Degrades gracefully: if the AI call
+ * fails, the computed chart is returned with a minimal narrative.
  */
 
-import type { KundliData } from "@/types/kundli.types";
+import type { KundliData, ManglikAnalysis } from "@/types/kundli.types";
 import { callGroqJSON } from "@/lib/groq";
+import { retrieveAstroKnowledge, formatKnowledgeForPrompt } from "@/lib/astroRag";
+import { computeBirthChart, type BirthChart } from "@/lib/jyotish/chart";
 
 export interface BirthDetails {
   name: string;
@@ -16,138 +27,134 @@ export interface BirthDetails {
   gender?: "male" | "female" | "other";
 }
 
-const KUNDLI_PROMPT = (details: string) => `You are Pandit Vishwanath Sharma — the world's finest Vedic Jyotish master with over 40 years of experience reading thousands of Kundlis. You have studied under the greatest Jyotish Gurus of India and your readings are known for being deeply accurate, warm, and life-changing. You speak simply — like a wise grandfather explaining things in plain, friendly words so anyone can understand, even without any astrology knowledge. You never use confusing jargon; instead you explain what each planet means for that person's real life.
-
-Now calculate a complete Kundli (birth chart) for the person below using traditional Vedic sidereal calculations (Lahiri Ayanamsa).
-
-Birth Details:
-${details}
-
-IMPORTANT LANGUAGE RULES:
-- "explanation" must be in simple, easy English — short sentences, everyday words, like you are talking to a friend. No hard astrology terms without explaining them. Warm and encouraging tone.
-- "explanationHindi" must be the same reading written in natural, everyday Hindi (Devanagari script) — as if you are speaking to the person directly in Hindi. Use simple Hindi words, not Sanskrit-heavy language.
-
-Return ONLY valid JSON matching this exact structure:
-{
-  "chartStyle": "north_indian",
-  "planetPositions": [
-    {"planet": "Sun", "symbol": "Su", "rashi": "<Hindi rashi name>", "house": <1-12>, "degree": <0.0-30.0>, "status": "direct"},
-    {"planet": "Moon", "symbol": "Mo", "rashi": "...", "house": ..., "degree": ..., "status": "direct"},
-    {"planet": "Mars", "symbol": "Ma", "rashi": "...", "house": ..., "degree": ..., "status": "direct|retrograde"},
-    {"planet": "Mercury", "symbol": "Me", "rashi": "...", "house": ..., "degree": ..., "status": "direct|retrograde"},
-    {"planet": "Jupiter", "symbol": "Ju", "rashi": "...", "house": ..., "degree": ..., "status": "direct|retrograde"},
-    {"planet": "Venus", "symbol": "Ve", "rashi": "...", "house": ..., "degree": ..., "status": "direct|retrograde"},
-    {"planet": "Saturn", "symbol": "Sa", "rashi": "...", "house": ..., "degree": ..., "status": "direct|retrograde"},
-    {"planet": "Rahu", "symbol": "Ra", "rashi": "...", "house": ..., "degree": ..., "status": "retrograde"},
-    {"planet": "Ketu", "symbol": "Ke", "rashi": "...", "house": ..., "degree": ..., "status": "retrograde"}
-  ],
-  "keyIndicators": {
-    "lagna": "<Hindi name of Ascendant sign>",
-    "lagnaEnglish": "<English name>",
-    "rashi": "<Moon sign Hindi>",
-    "rashiEnglish": "<Moon sign English>",
-    "nakshatra": "<Birth Nakshatra>",
-    "nakshatraPada": <1-4>,
-    "tithi": "<Tithi name>"
-  },
-  "doshaAnalysis": {
-    "mangalDosha": "yes|no|partial",
-    "mangalExplanation": "<1-2 simple sentences in English>",
-    "kaalSarp": "yes|no|partial",
-    "kaalSarpExplanation": "<1-2 simple sentences in English>",
-    "sadeSati": "yes|no|partial",
-    "sadeSatiExplanation": "<1-2 simple sentences in English>"
-  },
-  "manglikAnalysis": {
-    "status": "yes|no|partial",
-    "marsHouse": <house number 1-12 where Mars is placed>,
-    "marsRashi": "<rashi/sign Mars is in>",
-    "reason": "<1-2 simple sentences explaining Manglik status — mention house placement in plain words>",
-    "cancellationFactors": ["<factor if any — in simple English>"],
-    "remedies": ["<remedy 1>", "<remedy 2>", "<remedy 3>"],
-    "compatibilityTip": "<1 simple sentence about marriage matching>"
-  },
-  "houses": {
-    "1": ["<planet symbols in house 1>"],
-    "2": [],
-    "3": [],
-    "4": [],
-    "5": [],
-    "6": [],
-    "7": [],
-    "8": [],
-    "9": [],
-    "10": [],
-    "11": [],
-    "12": []
-  },
-  "explanation": "<200-300 words in simple, friendly English. Cover: what kind of person they are (from Lagna), how they feel inside (from Moon sign), what kind of work suits them, love and marriage life, any doshas explained simply with easy remedies, and a warm encouraging message for their life ahead. Write like you are talking to them directly — use 'you' and 'your'.>",
-  "explanationHindi": "<Same reading in 200-300 words of simple, everyday Hindi (Devanagari script). Write as if you are speaking to them warmly and directly — use 'aap' and common Hindi words. Explain what the planets mean for their life in a way any Hindi speaker can easily understand.>"
+interface KundliNarrative {
+  mangalExplanation?: string;
+  kaalSarpExplanation?: string;
+  sadeSatiExplanation?: string;
+  manglikReason?: string;
+  cancellationFactors?: string[];
+  remedies?: string[];
+  compatibilityTip?: string;
+  explanation?: string;
+  explanationHindi?: string;
 }
 
-Rashi names: Mesh, Vrishabh, Mithun, Kark, Simha, Kanya, Tula, Vrishchik, Dhanu, Makar, Kumbh, Meen.
-English: Aries, Taurus, Gemini, Cancer, Leo, Virgo, Libra, Scorpio, Sagittarius, Capricorn, Aquarius, Pisces.
-Calculate accurately based on the date, time, and coordinates. Output ONLY JSON.`;
+/**
+ * Classical grounding for the dosha/remedy narrative, targeted at the doshas
+ * actually present in the computed chart. Fails soft to "" when the RAG infra
+ * is unavailable.
+ */
+async function fetchKundliKnowledge(chart: BirthChart): Promise<string> {
+  const queries: string[] = [`${chart.keyIndicators.nakshatra} nakshatra nature deity planet`];
+  if (chart.mangal.status !== "no") {
+    queries.push("Mangal dosha Mars houses definition marriage", "Mangal dosha cancellation factors", "Mangal dosha remedies");
+  }
+  if (chart.kaalSarp.status !== "no") queries.push("Kaal Sarp yoga definition effects remedies");
+  if (chart.sadeSati.status !== "no") queries.push("Sade Sati Saturn definition phases effects");
+  const chunks = await retrieveAstroKnowledge(queries);
+  return formatKnowledgeForPrompt(chunks);
+}
+
+function buildNarrativePrompt(details: BirthDetails, chart: BirthChart, knowledgeBlock: string): string {
+  const planetLines = chart.planetPositions
+    .map((p) => `- ${p.planet} in ${p.rashi}, house ${p.house}, ${p.degree.toFixed(1)}°${p.status === "retrograde" ? " (retrograde)" : ""}`)
+    .join("\n");
+  const ki = chart.keyIndicators;
+
+  return `You are Pandit Vishwanath Sharma — a respected Vedic Jyotish master with 40+ years of experience reading Kundlis. You speak simply — like a wise grandfather explaining things in plain, friendly words so anyone can understand, even without any astrology knowledge.
+
+This person's Kundli has ALREADY been computed astronomically (sidereal, Lahiri Ayanamsa — like a panchang/ephemeris). These positions and dosha findings are FINAL — do NOT recompute, question, or change any of them. Your only job is to explain what they mean for this person's life.
+
+Person: ${details.name}${details.gender ? ` (${details.gender})` : ""}
+Born: ${details.dateOfBirth} at ${details.timeOfBirth} IST, ${details.placeName}
+
+COMPUTED CHART (final):
+Lagna (Ascendant): ${ki.lagna} (${ki.lagnaEnglish})
+Moon Rashi: ${ki.rashi} (${ki.rashiEnglish})
+Nakshatra: ${ki.nakshatra}, Pada ${ki.nakshatraPada}
+Tithi: ${ki.tithi}
+${planetLines}
+
+COMPUTED DOSHA FINDINGS (final):
+- Mangal Dosha: ${chart.mangal.status} — ${chart.mangal.facts}
+- Kaal Sarp: ${chart.kaalSarp.status} — ${chart.kaalSarp.facts}
+- Sade Sati: ${chart.sadeSati.status} — ${chart.sadeSati.facts}
+${knowledgeBlock ? `\nAUTHENTIC CLASSICAL KNOWLEDGE (retrieved from the shastra knowledge base — ground your explanations in these, citing inline as [K1], [K2] where relevant):\n${knowledgeBlock}\n` : ""}
+IMPORTANT LANGUAGE RULES:
+- "explanation" must be in simple, easy English — short sentences, everyday words, warm and encouraging tone. No hard astrology terms without explaining them.
+- "explanationHindi" must be the same reading in natural, everyday Hindi (Devanagari script) — use "aap" and common Hindi words.
+
+Return ONLY valid JSON matching this EXACT structure:
+{
+  "mangalExplanation": "<1-2 simple English sentences explaining the Mangal Dosha finding above>",
+  "kaalSarpExplanation": "<1-2 simple English sentences explaining the Kaal Sarp finding above>",
+  "sadeSatiExplanation": "<1-2 simple English sentences explaining the Sade Sati finding above>",
+  "manglikReason": "<1-2 simple sentences explaining the Manglik status from the Mars placement above>",
+  "cancellationFactors": ["<factor if any — in simple English, [] if none>"],
+  "remedies": [${chart.mangal.status !== "no" ? `"<classical remedy 1 for Mangal dosha>", "<remedy 2>", "<remedy 3>"` : ""}],
+  "compatibilityTip": "<1 simple sentence about marriage matching given the Manglik status>",
+  "explanation": "<200-300 words in simple, friendly English. Cover: what kind of person they are (from the ${ki.lagnaEnglish} Lagna), how they feel inside (from the ${ki.rashiEnglish} Moon and ${ki.nakshatra} nakshatra), what kind of work suits them, love and marriage life, the doshas explained simply with easy remedies, and a warm encouraging message. Write directly to them — use 'you' and 'your'.>",
+  "explanationHindi": "<Same reading in 200-300 words of simple, everyday Hindi (Devanagari script).>"
+}
+
+Output ONLY JSON. No markdown, no explanations outside the JSON.`;
+}
 
 /**
- * Generate full Kundli (chart + explanation) via Groq.
+ * Generate full Kundli — deterministic chart + AI explanation.
  */
 export async function generateKundli(
   details: BirthDetails
 ): Promise<KundliData & { explanation: string }> {
-  const inputSummary = [
-    `Name: ${details.name}`,
-    `Date of Birth: ${details.dateOfBirth}`,
-    `Time of Birth: ${details.timeOfBirth}`,
-    `Place: ${details.placeName}`,
-    `Latitude: ${details.latitude}`,
-    `Longitude: ${details.longitude}`,
-    details.gender ? `Gender: ${details.gender}` : "",
-  ]
-    .filter(Boolean)
-    .join("\n");
+  // The chart is computed locally — the source of truth.
+  const chart = computeBirthChart({
+    dateOfBirth: details.dateOfBirth,
+    timeOfBirth: details.timeOfBirth || "12:00",
+    latitude: details.latitude,
+    longitude: details.longitude,
+  });
 
-  const raw = await callGroqJSON(KUNDLI_PROMPT(inputSummary));
-
-  // Parse the JSON response
-  let parsed: Record<string, unknown>;
+  // Ground + narrate; failure degrades to a minimal narrative.
+  let narrative: KundliNarrative = {};
   try {
-    parsed = JSON.parse(raw);
-  } catch {
-    // Sometimes the model wraps in markdown backticks — strip them
-    const cleaned = raw.replace(/```json?\n?/g, "").replace(/```$/g, "").trim();
-    parsed = JSON.parse(cleaned);
+    const knowledgeBlock = await fetchKundliKnowledge(chart);
+    const raw = await callGroqJSON(buildNarrativePrompt(details, chart, knowledgeBlock));
+    try {
+      narrative = JSON.parse(raw) as KundliNarrative;
+    } catch {
+      const cleaned = raw.replace(/```json?\n?/g, "").replace(/```$/g, "").trim();
+      narrative = JSON.parse(cleaned) as KundliNarrative;
+    }
+  } catch (err) {
+    console.warn("[kundli] AI narrative unavailable — returning computed chart only:", err);
   }
 
-  // Validate required keys
-  const data = (parsed as unknown) as KundliData & { explanation?: string; explanationHindi?: string };
-  if (!data.planetPositions || !data.keyIndicators || !data.doshaAnalysis) {
-    throw new Error("Invalid Kundli data received from AI");
-  }
-
-  // Build fallback manglikAnalysis from doshaAnalysis if AI didn't return it
-  const marsPlanet = data.planetPositions?.find((p: { planet: string }) => p.planet === "Mars");
-  const manglikFallback: import("@/types/kundli.types").ManglikAnalysis = {
-    status: data.doshaAnalysis?.mangalDosha ?? "no",
-    marsHouse: marsPlanet?.house ?? 0,
-    marsRashi: marsPlanet?.rashi ?? "",
-    reason: data.doshaAnalysis?.mangalExplanation ?? "",
-    cancellationFactors: [],
-    remedies: [],
-    compatibilityTip: "",
+  const manglikAnalysis: ManglikAnalysis = {
+    status: chart.mangal.status,
+    marsHouse: chart.mangal.marsHouse,
+    marsRashi: chart.mangal.marsRashi,
+    reason: narrative.manglikReason || chart.mangal.facts,
+    cancellationFactors: Array.isArray(narrative.cancellationFactors) ? narrative.cancellationFactors : [],
+    remedies: Array.isArray(narrative.remedies) ? narrative.remedies : [],
+    compatibilityTip: narrative.compatibilityTip || "",
   };
 
   return {
-    chartStyle: data.chartStyle ?? "north_indian",
-    planetPositions: data.planetPositions,
-    keyIndicators: data.keyIndicators,
-    doshaAnalysis: data.doshaAnalysis,
-    manglikAnalysis: (parsed as Record<string, unknown>).manglikAnalysis
-      ? ((parsed as Record<string, unknown>).manglikAnalysis as import("@/types/kundli.types").ManglikAnalysis)
-      : manglikFallback,
-    houses: data.houses ?? {},
-    explanation: data.explanation ?? "",
-    explanationHindi: data.explanationHindi ?? "",
+    chartStyle: "north_indian",
+    planetPositions: chart.planetPositions,
+    keyIndicators: chart.keyIndicators,
+    doshaAnalysis: {
+      mangalDosha: chart.mangal.status,
+      mangalExplanation: narrative.mangalExplanation || chart.mangal.facts,
+      kaalSarp: chart.kaalSarp.status,
+      kaalSarpExplanation: narrative.kaalSarpExplanation || chart.kaalSarp.facts,
+      sadeSati: chart.sadeSati.status,
+      sadeSatiExplanation: narrative.sadeSatiExplanation || chart.sadeSati.facts,
+    },
+    manglikAnalysis,
+    houses: chart.houses,
+    explanation: narrative.explanation ?? "",
+    explanationHindi: narrative.explanationHindi ?? "",
   };
 }
 
