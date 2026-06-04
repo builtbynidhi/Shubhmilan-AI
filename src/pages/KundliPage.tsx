@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { generateKundli, searchPlaces, type PlaceResult } from "@/lib/kundliApi";
+import { SourceAttribution } from "@/components/shared/SourceAttribution";
 import type { KundliData, PlanetPosition, DoshaStatus, ManglikAnalysis } from "@/types/kundli.types";
 
 // ─── Translations ────────────────────────────────────────────────────────────
@@ -344,6 +345,12 @@ function ManglikCheckSection({ analysis, name, lang }: { analysis: ManglikAnalys
                   <p className="mt-1 text-xs leading-relaxed text-white/70">{analysis.compatibilityTip}</p>
                 </div>
               )}
+
+              {/* Classical source attribution */}
+              <SourceAttribution
+                texts={["Brihat Parashara Hora Shastra", "Surya Siddhanta (Lahiri Ayanamsa)", "Muhurta Chintamani"]}
+                lang={lang}
+              />
 
               {/* Disclaimer */}
               <p className="text-[10px] text-white/25">

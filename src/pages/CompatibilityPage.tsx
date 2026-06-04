@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { checkCompatibility } from "@/lib/compatibility";
 import { NAKSHATRAS, RASHIS as JYOTISH_RASHIS } from "@/lib/jyotish/nakshatra";
+import { SourceAttribution } from "@/components/shared/SourceAttribution";
 import type { CompatibilityResult, PartnerDetails } from "@/types/compatibility.types";
 
 // ─── Rashi list ──────────────────────────────────────────────────────────────
@@ -605,6 +606,16 @@ export default function CompatibilityPage() {
                   </ul>
                 </div>
               )}
+
+              {/* Classical source attribution */}
+              <div className="mb-8">
+                <SourceAttribution
+                  texts={["Narada Samhita (Ashtakoot)", "Muhurta Chintamani"]}
+                  lang={lang}
+                  grounded={result.grounded}
+                  groundedSources={result.sources}
+                />
+              </div>
 
               {/* Disclaimer */}
               <p className="mt-6 text-center text-[10px] tracking-wider uppercase text-[var(--color-text-muted)]/40">
