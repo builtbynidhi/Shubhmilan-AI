@@ -35,6 +35,8 @@ interface KundliNarrative {
   cancellationFactors?: string[];
   remedies?: string[];
   compatibilityTip?: string;
+  navamsaReading?: string;
+  navamsaReadingHindi?: string;
   explanation?: string;
   explanationHindi?: string;
 }
@@ -79,6 +81,9 @@ COMPUTED DOSHA FINDINGS (final):
 - Mangal Dosha: ${chart.mangal.status} — ${chart.mangal.facts}
 - Kaal Sarp: ${chart.kaalSarp.status} — ${chart.kaalSarp.facts}
 - Sade Sati: ${chart.sadeSati.status} — ${chart.sadeSati.facts}
+
+COMPUTED NAVAMSA (D9 — the divisional chart for marriage/spouse, final):
+${chart.navamsa.marriageFacts}
 ${knowledgeBlock ? `\nAUTHENTIC CLASSICAL KNOWLEDGE (retrieved from the shastra knowledge base — ground your explanations in these, citing inline as [K1], [K2] where relevant):\n${knowledgeBlock}\n` : ""}
 IMPORTANT LANGUAGE RULES:
 - "explanation" must be in simple, easy English — short sentences, everyday words, warm and encouraging tone. No hard astrology terms without explaining them.
@@ -93,6 +98,8 @@ Return ONLY valid JSON matching this EXACT structure:
   "cancellationFactors": ["<factor if any — in simple English, [] if none>"],
   "remedies": [${chart.mangal.status !== "no" ? `"<classical remedy 1 for Mangal dosha>", "<remedy 2>", "<remedy 3>"` : ""}],
   "compatibilityTip": "<1 simple sentence about marriage matching given the Manglik status>",
+  "navamsaReading": "<60-100 words in simple English on what the Navamsa (D9) above says about this person's marriage and life partner: nature of the spouse, marital harmony, and the strength shown by any vargottama planets. Base it strictly on the computed D9 facts.>",
+  "navamsaReadingHindi": "<Same Navamsa marriage reading in simple Hindi (Devanagari).>",
   "explanation": "<200-300 words in simple, friendly English. Cover: what kind of person they are (from the ${ki.lagnaEnglish} Lagna), how they feel inside (from the ${ki.rashiEnglish} Moon and ${ki.nakshatra} nakshatra), what kind of work suits them, love and marriage life, the doshas explained simply with easy remedies, and a warm encouraging message. Write directly to them — use 'you' and 'your'.>",
   "explanationHindi": "<Same reading in 200-300 words of simple, everyday Hindi (Devanagari script).>"
 }
@@ -153,6 +160,14 @@ export async function generateKundli(
     },
     manglikAnalysis,
     houses: chart.houses,
+    navamsa: {
+      lagna: chart.navamsa.lagna,
+      lagnaEnglish: chart.navamsa.lagnaEnglish,
+      houses: chart.navamsa.houses,
+      vargottama: chart.navamsa.vargottama,
+      marriageReading: narrative.navamsaReading || chart.navamsa.marriageFacts,
+      marriageReadingHindi: narrative.navamsaReadingHindi || "",
+    },
     explanation: narrative.explanation ?? "",
     explanationHindi: narrative.explanationHindi ?? "",
   };

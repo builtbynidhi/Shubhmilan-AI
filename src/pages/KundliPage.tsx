@@ -30,6 +30,10 @@ const L = {
     houseLabel: (n: number) => `House ${n}`,
     retrograde: "℞",
     doshaTitle: "Dosha Analysis",
+    navamsaTitle: "Navamsa (D9) — Marriage Chart",
+    navamsaSubtitle: "The divisional chart pandits read for marriage & life partner",
+    vargottamaLabel: "Vargottama (strong)",
+    navamsaReadingTitle: "Vivah / Marriage Reading",
     mangalDosha: "Mangal Dosha",
     kaalSarp: "Kaal Sarp Dosha",
     sadeSati: "Sade Sati",
@@ -70,6 +74,10 @@ const L = {
     houseLabel: (n: number) => `${n}\u0935\u093e\u0901 \u092d\u093e\u0935`,
     retrograde: "\u2bf8 \u0935\u0915\u094d\u0930\u0940",
     doshaTitle: "\u0926\u094b\u0937 \u0935\u093f\u0936\u094d\u0932\u0947\u0937\u0923",
+    navamsaTitle: "\u0928\u0935\u093e\u0902\u0936 (D9) \u2014 \u0935\u093f\u0935\u093e\u0939 \u0915\u0941\u0902\u0921\u0932\u0940",
+    navamsaSubtitle: "\u0935\u093f\u0935\u093e\u0939 \u0914\u0930 \u091c\u0940\u0935\u0928\u0938\u093e\u0925\u0940 \u0915\u0947 \u0932\u093f\u090f \u092a\u0902\u0921\u093f\u0924 \u092f\u0939\u0940 \u0935\u0930\u094d\u0917 \u0915\u0941\u0902\u0921\u0932\u0940 \u0926\u0947\u0916\u0924\u0947 \u0939\u0948\u0902",
+    vargottamaLabel: "\u0935\u0930\u094d\u0917\u094b\u0924\u094d\u0924\u092e (\u092c\u0932\u0935\u093e\u0928)",
+    navamsaReadingTitle: "\u0935\u093f\u0935\u093e\u0939 \u092b\u0932",
     mangalDosha: "\u092e\u0902\u0917\u0932 \u0926\u094b\u0937",
     kaalSarp: "\u0915\u093e\u0932 \u0938\u0930\u094d\u092a \u0926\u094b\u0937",
     sadeSati: "\u0938\u093e\u0922\u093c\u0947 \u0938\u093e\u0924\u0940",
@@ -802,6 +810,44 @@ export default function KundliPage() {
                     <DoshaBadge label={L[lang].sadeSati} status={result.doshaAnalysis.sadeSati} explanation={result.doshaAnalysis.sadeSatiExplanation} lang={lang} />
                   </div>
                 </div>
+
+                {/* Navamsa (D9) — marriage chart */}
+                {result.navamsa && (
+                  <div className="holo-border relative overflow-hidden rounded-2xl bg-[var(--color-surface)] p-6 shadow-2xl">
+                    <h3 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[var(--color-ai)]">
+                      <span className="text-base">💍</span> {L[lang].navamsaTitle}
+                    </h3>
+                    <p className="mt-1 mb-4 text-xs text-white/40">{L[lang].navamsaSubtitle}</p>
+                    <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
+                      {/* D9 chart */}
+                      <div className="flex flex-col items-center justify-center">
+                        <NorthIndianChart houses={result.navamsa.houses} />
+                        <p className="mt-2 text-xs text-white/50">
+                          D9 Lagna: <span className="text-[var(--color-accent)]">{result.navamsa.lagnaEnglish}</span>
+                        </p>
+                      </div>
+                      {/* Reading + vargottama */}
+                      <div className="space-y-3">
+                        {result.navamsa.vargottama.length > 0 && (
+                          <div className="rounded-xl border border-green-500/20 bg-green-500/5 p-3">
+                            <p className="text-xs font-semibold text-green-400">{L[lang].vargottamaLabel}</p>
+                            <p className="mt-1 text-sm text-white/80">{result.navamsa.vargottama.join(", ")}</p>
+                          </div>
+                        )}
+                        <div>
+                          <h4 className="mb-1.5 text-xs font-bold uppercase tracking-wide text-[var(--color-accent)]">
+                            {L[lang].navamsaReadingTitle}
+                          </h4>
+                          <p className="text-sm leading-relaxed text-white/70 whitespace-pre-line">
+                            {lang === "hi" && result.navamsa.marriageReadingHindi
+                              ? result.navamsa.marriageReadingHindi
+                              : result.navamsa.marriageReading}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
 
                 {/* ─── Manglik Check ─── */}
                 {result.manglikAnalysis && (

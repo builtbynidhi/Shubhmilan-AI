@@ -44,6 +44,20 @@ export interface ComputedDosha {
   facts: string;
 }
 
+/** Navamsa (D9) — the divisional chart pandits read for marriage/spouse. */
+export interface NavamsaChart {
+  lagnaRashi: number;
+  lagna: string;        // Hindi
+  lagnaEnglish: string;
+  houses: Record<number, string[]>;
+  /** Each graha's D9 sign + whole-sign house from the D9 lagna */
+  planetRashis: { planet: PlanetName; symbol: string; rashi: string; house: number }[];
+  /** Planets in the SAME sign in D1 and D9 — "vargottama", a sign of strength */
+  vargottama: PlanetName[];
+  /** Computed marriage facts for the AI narrative layer (not user-facing verbatim) */
+  marriageFacts: string;
+}
+
 export interface BirthChart {
   planetPositions: PlanetPosition[];
   keyIndicators: KeyIndicators;
@@ -53,6 +67,7 @@ export interface BirthChart {
   mangal: ComputedDosha & { marsHouse: number; marsRashi: string };
   kaalSarp: ComputedDosha;
   sadeSati: ComputedDosha;
+  navamsa: NavamsaChart;
 }
 
 /** Interpret a local Indian birth date+time as a UTC Date (IST = UTC+5:30). */
@@ -221,6 +236,49 @@ export function computeBirthChart(input: BirthChartInput): BirthChart {
       : `Saturn currently transits ${RASHI_HINDI[saturnNowRashi]}, away from the ${RASHI_HINDI[moonRashi]} Moon — no Sade Sati now.`,
   };
 
+  // ── Navamsa (D9) — each 30° rashi splits into 9 parts of 3°20'; the navamsa
+  // sign advances continuously, so navamsaSign = floor(lon / (10/3)) % 12.
+  // This matches the classical chara/sthira/dvisvabhava element rule. ───────────
+  const navamsaSignOf = (lon: number) => Math.floor(lon / (10 / 3)) % 12;
+  const d9LagnaRashi = navamsaSignOf(lagnaLon);
+  const d9HouseOf = (rashi: number) => ((rashi - d9LagnaRashi + 12) % 12) + 1;
+
+  const navamsaHouses: Record<number, string[]> = {};
+  for (let h = 1; h <= 12; h++) navamsaHouses[h] = [];
+  const navamsaPlanets: NavamsaChart["planetRashis"] = [];
+  const vargottama: PlanetName[] = [];
+
+  for (const p of positions) {
+    const d9Rashi = navamsaSignOf(p.lon);
+    const d1Rashi = Math.floor(p.lon / 30);
+    if (d9Rashi === d1Rashi) vargottama.push(p.planet);
+    const house = d9HouseOf(d9Rashi);
+    navamsaHouses[house].push(p.symbol);
+    navamsaPlanets.push({ planet: p.planet, symbol: p.symbol, rashi: RASHI_HINDI[d9Rashi], house });
+  }
+
+  // Marriage focus: the 7th house of the D9 (spouse) and what occupies it.
+  const d9SeventhRashi = (d9LagnaRashi + 6) % 12;
+  const planetsInD9Seventh = navamsaPlanets.filter((p) => p.house === 7).map((p) => p.planet);
+  const venusD9 = navamsaPlanets.find((p) => p.planet === "Venus")!;
+  const jupiterD9 = navamsaPlanets.find((p) => p.planet === "Jupiter")!;
+  const marriageFacts = [
+    `D9 Lagna: ${RASHI_HINDI[d9LagnaRashi]} (${RASHIS[d9LagnaRashi].english}).`,
+    `7th house of D9 (spouse/marriage): ${RASHI_HINDI[d9SeventhRashi]}${planetsInD9Seventh.length ? `, occupied by ${planetsInD9Seventh.join(", ")}` : ", no planets"}.`,
+    `Venus (love/marriage karaka) in D9: ${venusD9.rashi}, house ${venusD9.house}. Jupiter (for a bride): ${jupiterD9.rashi}, house ${jupiterD9.house}.`,
+    vargottama.length ? `Vargottama (strong) planets: ${vargottama.join(", ")}.` : "No vargottama planets.",
+  ].join(" ");
+
+  const navamsa: NavamsaChart = {
+    lagnaRashi: d9LagnaRashi,
+    lagna: RASHI_HINDI[d9LagnaRashi],
+    lagnaEnglish: RASHIS[d9LagnaRashi].english,
+    houses: navamsaHouses,
+    planetRashis: navamsaPlanets,
+    vargottama,
+    marriageFacts,
+  };
+
   return {
     planetPositions: positions.map((p) => ({
       planet: p.planet,
@@ -237,5 +295,6 @@ export function computeBirthChart(input: BirthChartInput): BirthChart {
     mangal,
     kaalSarp,
     sadeSati,
+    navamsa,
   };
 }

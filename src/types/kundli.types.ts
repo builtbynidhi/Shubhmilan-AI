@@ -61,6 +61,18 @@ export interface ManglikAnalysis {
   compatibilityTip: string;
 }
 
+/** Navamsa (D9) — the divisional chart read for marriage/spouse compatibility */
+export interface NavamsaData {
+  lagna: string;
+  lagnaEnglish: string;
+  houses: Record<number, string[]>;
+  /** Planets vargottama (same sign in D1 and D9) — a mark of strength */
+  vargottama: string[];
+  /** Marriage reading for the Navamsa, written by the AI from computed facts */
+  marriageReading: string;
+  marriageReadingHindi: string;
+}
+
 export interface KundliData {
   chartStyle: ChartStyle;
   planetPositions: PlanetPosition[];
@@ -68,6 +80,8 @@ export interface KundliData {
   doshaAnalysis: DoshaAnalysis;
   manglikAnalysis: ManglikAnalysis;
   houses: Record<number, string[]>;
+  /** Navamsa (D9) chart + marriage reading */
+  navamsa?: NavamsaData;
   /** AI interpretation in simple Hindi (Devanagari) */
   explanationHindi?: string;
 }
