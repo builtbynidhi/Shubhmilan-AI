@@ -222,7 +222,14 @@ export function computeBirthChart(input: BirthChartInput): BirthChart {
   };
 
   return {
-    planetPositions: positions.map(({ lon: _lon, ...p }) => p),
+    planetPositions: positions.map((p) => ({
+      planet: p.planet,
+      symbol: p.symbol,
+      rashi: p.rashi,
+      house: p.house,
+      degree: p.degree,
+      status: p.status,
+    })),
     keyIndicators,
     houses,
     lagnaRashi,
