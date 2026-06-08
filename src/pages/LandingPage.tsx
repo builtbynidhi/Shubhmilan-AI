@@ -349,7 +349,7 @@ export default function LandingPage() {
 
             {[
               { step: "०१", title: "Enter Details", desc: "Fill in your personal, family, and career details securely.", icon: "🪔" },
-              { step: "०२", title: "Select Template", desc: "Choose from elegant, community-inspired sacred designs.", icon: "📜" },
+              { step: "०२", title: "Select Template", desc: "Choose from elegant, temple-inspired sacred designs.", icon: "📜" },
               { step: "०३", title: "Download PDF", desc: "Preview for free. Pay only ₹30 when you download.", icon: "✨" },
             ].map((item, i) => (
               <motion.div

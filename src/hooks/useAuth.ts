@@ -44,6 +44,10 @@ export function ClerkAuthBridge() {
       setUser({
         id: clerkUser.id,
         email: clerkUser.primaryEmailAddress?.emailAddress ?? "",
+        name:
+          clerkUser.fullName ||
+          [clerkUser.firstName, clerkUser.lastName].filter(Boolean).join(" ") ||
+          null,
       });
       apiFetch<UserProfile>("/api/profile")
         .then(setProfile)

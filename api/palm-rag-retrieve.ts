@@ -12,7 +12,7 @@ import { db } from "./_lib/db";
 import { palmistryKnowledge } from "./_lib/schema";
 import { handle, assertMethod, HttpError } from "./_lib/http";
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = process.env.GEMINI_EMBED_MODEL || "gemini-embedding-001";
 const EMBEDDING_DIMENSIONS = 1536;
 const DEFAULT_MATCH_COUNT = 4;
 
@@ -28,21 +28,30 @@ interface Chunk {
 }
 
 async function embed(apiKey: string, inputs: string[]): Promise<number[][]> {
-  const res = await fetch("https://api.openai.com/v1/embeddings", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({ model: EMBEDDING_MODEL, input: inputs, dimensions: EMBEDDING_DIMENSIONS }),
-  });
-  if (!res.ok) throw new Error(`OpenAI embeddings error ${res.status}: ${await res.text()}`);
-  const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data.map((d) => d.embedding);
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        requests: inputs.map((text) => ({
+          model: `models/${EMBEDDING_MODEL}`,
+          content: { parts: [{ text }] },
+          outputDimensionality: EMBEDDING_DIMENSIONS,
+        })),
+      }),
+    }
+  );
+  if (!res.ok) throw new Error(`Gemini embeddings error ${res.status}: ${await res.text()}`);
+  const json = (await res.json()) as { embeddings: { values: number[] }[] };
+  return json.embeddings.map((e) => e.values);
 }
 
 export default handle(async (req: VercelRequest, res: VercelResponse) => {
   assertMethod(req, "POST");
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) throw new HttpError(500, "OPENAI_API_KEY not configured");
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new HttpError(500, "GEMINI_API_KEY not configured");
 
   const body = (req.body ?? {}) as { queries?: string[]; matchCount?: number };
   const queries = (body.queries ?? [])

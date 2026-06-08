@@ -72,8 +72,8 @@ export function usePayment() {
           } catch (err) {
             setError(
               err instanceof Error
-                ? `Payment ho gaya but verify nahi ho paya: ${err.message}. Thodi der mein dobara try karein ya support se sampark karein.`
-                : "Payment ho gaya but verify nahi ho paya. Thodi der mein dobara try karein ya support se sampark karein."
+                ? `Payment went through but we couldn't verify it: ${err.message}. Please try again shortly or contact support.`
+                : "Payment went through but we couldn't verify it. Please try again shortly or contact support."
             );
           }
         },
@@ -134,8 +134,8 @@ export function usePayment() {
           } catch (err) {
             setError(
               err instanceof Error
-                ? `Payment ho gaya but verify nahi ho paya: ${err.message}. Thodi der mein dobara try karein ya support se sampark karein.`
-                : "Payment ho gaya but verify nahi ho paya. Thodi der mein dobara try karein ya support se sampark karein."
+                ? `Payment went through but we couldn't verify it: ${err.message}. Please try again shortly or contact support.`
+                : "Payment went through but we couldn't verify it. Please try again shortly or contact support."
             );
           }
         },

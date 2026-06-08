@@ -5,6 +5,8 @@ import type { UserProfile } from "@/types/user.types";
 export interface AppUser {
   id: string;
   email: string;
+  /** Full name from Clerk (Google/profile), if the user has one. */
+  name?: string | null;
 }
 
 interface AuthStore {

@@ -1,4 +1,6 @@
 import { z } from "zod";
+import type { Community } from "@/types/biodata.types";
+import { ENABLED_COMMUNITIES } from "@/utils/communityFields";
 
 const extraFieldSchema = z.object({
   label: z.string().min(1, "Label is required"),
@@ -6,7 +8,11 @@ const extraFieldSchema = z.object({
 });
 
 export const personalInfoSchema = z.object({
-  community: z.enum(["hindu", "muslim", "christian", "sikh", "jain", "buddhist"]),
+  // Gated on the live-communities list (Hindu-only for now). The cast keeps the
+  // field's type the full Community union — so dormant non-Hindu UI branches still
+  // compile — while runtime validation rejects anything not in ENABLED_COMMUNITIES.
+  // Stays required (always supplied by the builder's store-backed defaultValues).
+  community: z.enum(ENABLED_COMMUNITIES as [Community, ...Community[]]),
   photoUrl: z.string().optional(),
   secondPhotoUrl: z.string().optional(),
   fullName: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -94,7 +100,6 @@ export const aboutInfoSchema = z.object({
     "vegetarian",
     "non_vegetarian",
     "occasionally_non_veg",
-    "jain_vegetarian",
     "eggetarian",
   ]),
   smoking: z.enum(["never", "occasionally", "yes"]),

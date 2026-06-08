@@ -1,10 +1,10 @@
 /**
  * POST /api/rag-retrieve — generalized grounding retrieval (palmistry + astrology).
  *
- * Embeds the incoming queries (OpenAI text-embedding-3-small) and runs a
- * pgvector cosine search over the requested knowledge domain on Neon, returning
- * the closest chunks. Public (no auth) but input-capped. The embedding key
- * lives server-side. Supersedes /api/palm-rag-retrieve (kept for back-compat).
+ * Embeds the incoming queries (Google Gemini, gemini-embedding-001 @1536-d) and
+ * runs a pgvector cosine search over the requested knowledge domain on Neon,
+ * returning the closest chunks. Public (no auth) but input-capped. The embedding
+ * key lives server-side. Supersedes /api/palm-rag-retrieve (kept for back-compat).
  */
 
 import type { VercelRequest, VercelResponse } from "@vercel/node";
@@ -13,7 +13,7 @@ import { db } from "./_lib/db";
 import { palmistryKnowledge, astrologyKnowledge } from "./_lib/schema";
 import { handle, assertMethod, HttpError } from "./_lib/http";
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = process.env.GEMINI_EMBED_MODEL || "gemini-embedding-001";
 const EMBEDDING_DIMENSIONS = 1536;
 const DEFAULT_MATCH_COUNT = 4;
 
@@ -35,21 +35,30 @@ interface Chunk {
 }
 
 async function embed(apiKey: string, inputs: string[]): Promise<number[][]> {
-  const res = await fetch("https://api.openai.com/v1/embeddings", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({ model: EMBEDDING_MODEL, input: inputs, dimensions: EMBEDDING_DIMENSIONS }),
-  });
-  if (!res.ok) throw new Error(`OpenAI embeddings error ${res.status}: ${await res.text()}`);
-  const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data.map((d) => d.embedding);
+  const res = await fetch(
+    `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${apiKey}`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        requests: inputs.map((text) => ({
+          model: `models/${EMBEDDING_MODEL}`,
+          content: { parts: [{ text }] },
+          outputDimensionality: EMBEDDING_DIMENSIONS,
+        })),
+      }),
+    }
+  );
+  if (!res.ok) throw new Error(`Gemini embeddings error ${res.status}: ${await res.text()}`);
+  const json = (await res.json()) as { embeddings: { values: number[] }[] };
+  return json.embeddings.map((e) => e.values);
 }
 
 export default handle(async (req: VercelRequest, res: VercelResponse) => {
   assertMethod(req, "POST");
 
-  const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) throw new HttpError(500, "OPENAI_API_KEY not configured");
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey) throw new HttpError(500, "GEMINI_API_KEY not configured");
 
   const body = (req.body ?? {}) as { domain?: string; queries?: string[]; matchCount?: number };
 

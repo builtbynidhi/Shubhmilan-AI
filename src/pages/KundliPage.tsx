@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import {
   ArrowLeft, Sparkles, Loader2, MapPin, Calendar, Clock, User,
   Star, AlertTriangle, ChevronRight, RotateCcw, ShieldCheck, ShieldAlert, ShieldQuestion,
-  Lock, ChevronDown, ChevronUp,
+  Lock, ChevronDown, ChevronUp, Save, Check,
 } from "lucide-react";
+import { SignInButton } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { generateKundli, searchPlaces, type PlaceResult } from "@/lib/kundliApi";
 import { SourceAttribution } from "@/components/shared/SourceAttribution";
+import { useKundli } from "@/hooks/useKundli";
+import { useAuthStore } from "@/store/authStore";
+import { CLERK_ENABLED } from "@/hooks/useAuth";
 import type { KundliData, PlanetPosition, DoshaStatus, ManglikAnalysis } from "@/types/kundli.types";
 
 // ─── Translations ────────────────────────────────────────────────────────────
@@ -453,6 +457,12 @@ export default function KundliPage() {
   const [result, setResult] = useState<(KundliData & { explanation: string; explanationHindi?: string }) | null>(null);
   const [lang, setLang] = useState<"en" | "hi">("en");
 
+  // Save-to-account state
+  const { user } = useAuthStore();
+  const { createKundli } = useKundli();
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const wantSaveRef = useRef(false);
+
   // Progress animation
   const [progress, setProgress] = useState(0);
   useEffect(() => {
@@ -486,11 +496,11 @@ export default function KundliPage() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
       if (msg.includes("429") || msg.toLowerCase().includes("quota") || msg.includes("RESOURCE_EXHAUSTED")) {
-        setError("AI thodi busy hai — kuch der baad dobara try karein.");
+        setError(lang === "hi" ? "AI अभी व्यस्त है — कुछ देर बाद दोबारा प्रयास करें।" : "The AI is busy right now — please try again in a moment.");
       } else if (msg.includes("401") || msg.includes("403")) {
-        setError("AI service abhi unavailable hai. Thodi der baad try karein.");
+        setError(lang === "hi" ? "AI सेवा अभी उपलब्ध नहीं है। थोड़ी देर बाद प्रयास करें।" : "The AI service is currently unavailable. Please try again shortly.");
       } else {
-        setError("Kundli generate nahi ho payi. Internet check karke dobara try karein.");
+        setError(lang === "hi" ? "कुंडली नहीं बन पाई। इंटरनेट जांच कर दोबारा प्रयास करें।" : "Couldn't generate the Kundli. Check your connection and try again.");
       }
     } finally {
       setLoading(false);
@@ -501,7 +511,39 @@ export default function KundliPage() {
     setResult(null);
     setError(null);
     setProgress(0);
+    setSaveStatus("idle");
   }
+
+  async function handleSaveKundli() {
+    if (!result) return;
+    setSaveStatus("saving");
+    try {
+      await createKundli.mutateAsync({
+        subject_name: name.trim(),
+        birth_date: dob,
+        birth_time: time || null,
+        birth_place: place,
+        latitude: coords?.lat ?? null,
+        longitude: coords?.lon ?? null,
+        chart_style: "north_indian",
+        kundli_data: result,
+        ai_explanation: result.explanation,
+      });
+      setSaveStatus("saved");
+    } catch (err) {
+      console.error("Kundli save failed:", err);
+      setSaveStatus("error");
+    }
+  }
+
+  // Auto-save once the user signs in via the modal (if they clicked "Sign in to save").
+  useEffect(() => {
+    if (user && wantSaveRef.current) {
+      wantSaveRef.current = false;
+      void handleSaveKundli();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   // Format DOB for display
   const dobDisplay = dob
@@ -880,6 +922,39 @@ export default function KundliPage() {
                       </motion.p>
                     </AnimatePresence>
                   </motion.div>
+                )}
+
+                {/* Save to account */}
+                {user ? (
+                  <Button
+                    variant="outline"
+                    onClick={handleSaveKundli}
+                    disabled={saveStatus === "saving" || saveStatus === "saved"}
+                    className="w-full border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+                  >
+                    {saveStatus === "saving" ? (
+                      <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving…</>
+                    ) : saveStatus === "saved" ? (
+                      <><Check className="mr-2 h-4 w-4" /> Saved to your account</>
+                    ) : (
+                      <><Save className="mr-2 h-4 w-4" /> Save to my account</>
+                    )}
+                  </Button>
+                ) : CLERK_ENABLED ? (
+                  <SignInButton mode="modal" forceRedirectUrl="/kundli">
+                    <Button
+                      variant="outline"
+                      onClick={() => { wantSaveRef.current = true; }}
+                      className="w-full border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+                    >
+                      <Save className="mr-2 h-4 w-4" /> Sign in to save this Kundli
+                    </Button>
+                  </SignInButton>
+                ) : null}
+                {saveStatus === "error" && (
+                  <p className="text-center text-sm text-[var(--color-error)]">
+                    {lang === "hi" ? "सेव नहीं हो पाया — दोबारा प्रयास करें।" : "Couldn't save — please try again."}
+                  </p>
                 )}
 
                 {/* Action buttons */}

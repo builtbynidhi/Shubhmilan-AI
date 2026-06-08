@@ -23,7 +23,6 @@ export type Diet =
   | "vegetarian"
   | "non_vegetarian"
   | "occasionally_non_veg"
-  | "jain_vegetarian"
   | "eggetarian";
 
 export type Frequency = "never" | "occasionally" | "yes";

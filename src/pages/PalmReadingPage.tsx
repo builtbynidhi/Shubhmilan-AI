@@ -9,7 +9,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { analyzePalm, type PalmReadingResult, type PalmLine } from "@/lib/palmReading";
+import { analyzePalm, PalmImageError, type PalmReadingResult, type PalmLine } from "@/lib/palmReading";
+import { PalmBlueprint } from "@/components/shared/PalmBlueprint";
 
 // ─── Translations ────────────────────────────────────────────────────────────
 const T = {
@@ -50,7 +51,7 @@ const T = {
     absent: "Absent",
     langEn: "English",
     langHi: "हिंदी",
-    disclaimer: "This reading is AI-generated for entertainment and guidance. For authoritative decisions, consult a qualified palmist.",
+    disclaimer: "This reading is AI-generated and grounded in classical palmistry texts. Palmistry is an interpretive tradition meant for entertainment and guidance — not a factual prediction of your future. For important decisions, please consult a qualified palmist.",
   },
   hi: {
     title: "हस्तरेखा पठन",
@@ -89,7 +90,7 @@ const T = {
     absent: "अनुपस्थित",
     langEn: "English",
     langHi: "हिंदी",
-    disclaimer: "यह रीडिंग AI द्वारा मनोरंजन और मार्गदर्शन के लिए तैयार की गई है। प्रामाणिक निर्णयों के लिए किसी योग्य हस्तरेखा शास्त्री से परामर्श लें।",
+    disclaimer: "यह रीडिंग AI द्वारा, शास्त्रीय हस्तरेखा ग्रंथों के आधार पर तैयार की गई है। हस्तरेखा एक व्याख्यात्मक परंपरा है — मनोरंजन और मार्गदर्शन के लिए, भविष्य की पक्की भविष्यवाणी नहीं। महत्वपूर्ण निर्णयों के लिए किसी योग्य हस्तरेखा शास्त्री से परामर्श लें।",
   },
 };
 type Lang = "en" | "hi";
@@ -251,6 +252,12 @@ function PalmCapture({
     canvas.height = video.videoHeight;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    // Front camera: mirror the capture so the saved photo matches the
+    // selfie-style mirrored preview the user lined their palm up against.
+    if (facingMode === "user") {
+      ctx.translate(canvas.width, 0);
+      ctx.scale(-1, 1);
+    }
     ctx.drawImage(video, 0, 0);
     const dataUrl = canvas.toDataURL("image/jpeg", 0.9);
     stopCamera();
@@ -316,7 +323,14 @@ function PalmCapture({
     <div className="space-y-3">
       {streaming ? (
         <div className="relative overflow-hidden rounded-2xl border-2 border-[var(--color-ai)]/30">
-          <video ref={videoRef} autoPlay playsInline muted className="block w-full min-h-[300px] bg-black" />
+          <video
+            ref={videoRef}
+            autoPlay
+            playsInline
+            muted
+            className="block w-full min-h-[300px] bg-black"
+            style={{ transform: facingMode === "user" ? "scaleX(-1)" : undefined }}
+          />
           {/* Guide overlay */}
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="h-64 w-48 rounded-3xl border-2 border-dashed border-[var(--color-ai)]/40" />
@@ -418,7 +432,20 @@ export default function PalmReadingPage() {
       await new Promise((r) => setTimeout(r, 400));
       setResult(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to read palm. Please try again.");
+      if (err instanceof PalmImageError) {
+        const issue = err.issue ? ` (${err.issue})` : "";
+        setError(
+          lang === "hi"
+            ? `यह तस्वीर साफ हथेली जैसी नहीं लगी${issue}। कृपया अच्छी रोशनी में, हथेली सीधी रखकर और उंगलियां थोड़ी फैलाकर दोबारा फोटो लें।`
+            : `This photo doesn't look like a clear palm${issue}. Please retake it in good light with your palm flat and fingers slightly spread, then tap "Read My Palm".`
+        );
+      } else {
+        setError(
+          lang === "hi"
+            ? "हथेली पढ़ने में दिक्कत आई। कृपया दोबारा प्रयास करें।"
+            : "Couldn't read the palm. Please try again."
+        );
+      }
     } finally {
       setLoading(false);
     }
@@ -688,6 +715,8 @@ export default function PalmReadingPage() {
                   <h3 className="mb-4 flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[var(--color-ai)]">
                     <Hand className="h-4 w-4" /> {t.linesTitle}
                   </h3>
+                  {/* Animated palm-line blueprint — visual centerpiece, driven by the detected lines */}
+                  <PalmBlueprint lines={result.lines} lang={lang} />
                   <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
                     {result.lines.map((line, i) => (
                       <PalmLineCard key={i} line={line} lang={lang} />

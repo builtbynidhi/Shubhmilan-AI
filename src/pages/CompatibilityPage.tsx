@@ -1,18 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import {
   ArrowLeft, Heart, Loader2, User, Star,
   RotateCcw, CheckCircle2, XCircle, AlertTriangle, Sparkles,
-  CalendarHeart, ShieldCheck, ChevronDown,
+  CalendarHeart, ShieldCheck, ChevronDown, MapPin, Calendar, Clock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { checkCompatibility } from "@/lib/compatibility";
+import { computeBirthChart } from "@/lib/jyotish/chart";
+import { searchPlaces, type PlaceResult } from "@/lib/kundliApi";
 import { NAKSHATRAS, RASHIS as JYOTISH_RASHIS } from "@/lib/jyotish/nakshatra";
 import { SourceAttribution } from "@/components/shared/SourceAttribution";
 import type { CompatibilityResult, PartnerDetails } from "@/types/compatibility.types";
+
+// Birth-date bounds: no future, max 120 years back.
+const _pad = (n: number) => String(n).padStart(2, "0");
+const _now = new Date();
+const MAX_DOB = `${_now.getFullYear()}-${_pad(_now.getMonth() + 1)}-${_pad(_now.getDate())}`;
+const MIN_DOB = `${_now.getFullYear() - 120}-${_pad(_now.getMonth() + 1)}-${_pad(_now.getDate())}`;
 
 // ─── Rashi list ──────────────────────────────────────────────────────────────
 const RASHIS = [
@@ -36,10 +44,17 @@ const L = {
     title: "Kundli Matching (कुंडली मिलान)",
     subtitle: "Ashtakoot Guna Milan",
     heroTitle: "Check Your Compatibility",
-    heroDesc: "Select the birth Nakshatra of both partners for a complete Ashtakoot Guna Milan — computed from the classical 36-guna tables used by pandits for centuries.",
+    heroDesc: "Enter both partners' birth details — we'll automatically work out the Nakshatra & Rashi for a complete Ashtakoot Guna Milan from the classical 36-guna tables.",
     partner1: "Partner 1 — Groom (वर)",
     partner2: "Partner 2 — Bride (वधू)",
     fullName: "Full Name",
+    birthDate: "Date of Birth",
+    birthTime: "Time of Birth",
+    birthPlace: "Place of Birth",
+    placePlaceholder: "e.g. Pune, Maharashtra, India",
+    knowNakshatra: "I already know my Nakshatra & Rashi",
+    useBirthDetails: "Use birth details instead",
+    needPlace: "Please pick the birth place from the suggestions for both partners.",
     nakshatra: "Nakshatra (नक्षत्र)",
     selectNakshatra: "Select Nakshatra…",
     rashi: "Rashi (राशि)",
@@ -63,10 +78,17 @@ const L = {
     title: "कुंडली मिलान (Kundli Matching)",
     subtitle: "अष्टकूट गुण मिलान",
     heroTitle: "अपनी अनुकूलता जाँचें",
-    heroDesc: "दोनों साथियों का जन्म नक्षत्र चुनें — शास्त्रीय 36-गुण तालिकाओं से अष्टकूट गुण मिलान के लिए।",
+    heroDesc: "दोनों साथियों की जन्म जानकारी भरें — हम नक्षत्र व राशि अपने-आप निकाल कर शास्त्रीय 36-गुण तालिकाओं से अष्टकूट गुण मिलान करेंगे।",
     partner1: "साथी 1 — वर (Groom)",
     partner2: "साथी 2 — वधू (Bride)",
     fullName: "पूरा नाम",
+    birthDate: "जन्म तिथि",
+    birthTime: "जन्म समय",
+    birthPlace: "जन्म स्थान",
+    placePlaceholder: "जैसे पुणे, महाराष्ट्र, भारत",
+    knowNakshatra: "मुझे अपना नक्षत्र व राशि पता है",
+    useBirthDetails: "जन्म जानकारी से भरें",
+    needPlace: "कृपया दोनों साथियों का जन्म स्थान सुझावों में से चुनें।",
     nakshatra: "नक्षत्र (Nakshatra)",
     selectNakshatra: "नक्षत्र चुनें…",
     rashi: "राशि (Rashi)",
@@ -210,8 +232,112 @@ function GunaBar({ name, nameHindi, obtained, maximum, description, lang, delay 
   );
 }
 
-// ─── Partner Form Card ───────────────────────────────────────────────────────
-function PartnerForm({
+// ─── Place autocomplete (Nominatim, reused pattern from Kundli) ───────────────
+function PlaceInput({ value, onChange, onSelect, placeholder }: {
+  value: string; onChange: (v: string) => void; onSelect: (p: PlaceResult) => void; placeholder: string;
+}) {
+  const [suggestions, setSuggestions] = useState<PlaceResult[]>([]);
+  const [open, setOpen] = useState(false);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const fetchSuggestions = useCallback((query: string) => {
+    clearTimeout(debounceRef.current);
+    if (query.length < 2) { setSuggestions([]); setOpen(false); return; }
+    debounceRef.current = setTimeout(async () => {
+      const results = await searchPlaces(query);
+      setSuggestions(results);
+      setOpen(results.length > 0);
+    }, 350);
+  }, []);
+
+  return (
+    <div className="relative">
+      <div className="relative">
+        <MapPin className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--color-accent)]/50" />
+        <Input
+          placeholder={placeholder}
+          value={value}
+          onChange={(e) => { onChange(e.target.value); fetchSuggestions(e.target.value); }}
+          onBlur={() => setTimeout(() => setOpen(false), 200)}
+          className="border-white/10 bg-white/5 pl-10 text-white placeholder:text-white/30"
+        />
+      </div>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -4 }}
+            className="absolute z-30 mt-1 max-h-48 w-full overflow-auto rounded-xl border border-[var(--color-accent)]/20 bg-[var(--color-surface)] shadow-2xl"
+          >
+            {suggestions.map((s, i) => (
+              <button
+                key={i}
+                type="button"
+                onMouseDown={() => { onSelect(s); setOpen(false); }}
+                className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-white/80 hover:bg-[var(--color-accent)]/10"
+              >
+                <MapPin className="h-3.5 w-3.5 shrink-0 text-[var(--color-accent)]/60" />
+                <span className="truncate">{s.displayName}</span>
+              </button>
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+// ─── Partner Form (birth details — Nakshatra/Rashi auto-computed) ─────────────
+function BirthPartnerForm({
+  label, emoji, name, setName, dob, setDob, time, setTime, place, setPlace, onPickPlace, t,
+}: {
+  label: string; emoji: string;
+  name: string; setName: (v: string) => void;
+  dob: string; setDob: (v: string) => void;
+  time: string; setTime: (v: string) => void;
+  place: string; setPlace: (v: string) => void;
+  onPickPlace: (p: PlaceResult) => void;
+  t: typeof L.en;
+}) {
+  return (
+    // overflow-visible so the place-suggestion dropdown isn't clipped by the
+    // card's `overflow:hidden` (the place field is the last row in this card).
+    <div className="sacred-card p-6 space-y-4" style={{ overflow: "visible" }}>
+      <div className="flex items-center gap-2 mb-2">
+        <span className="text-xl">{emoji}</span>
+        <h3 className="font-[Cinzel,serif] text-base font-bold text-[var(--color-text-primary)]">{label}</h3>
+      </div>
+      <div className="space-y-1.5">
+        <Label className="flex items-center gap-2 text-sm font-medium text-white/80">
+          <User className="h-3.5 w-3.5 text-[var(--color-accent)]/60" /> {t.fullName}
+        </Label>
+        <Input placeholder="e.g. Ankur Singh" value={name} onChange={(e) => setName(e.target.value)} className="border-white/10 bg-white/5 text-white placeholder:text-white/30" />
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        <div className="space-y-1.5">
+          <Label className="flex items-center gap-2 text-sm font-medium text-white/80">
+            <Calendar className="h-3.5 w-3.5 text-[var(--color-accent)]/60" /> {t.birthDate}
+          </Label>
+          <Input type="date" min={MIN_DOB} max={MAX_DOB} value={dob} onChange={(e) => setDob(e.target.value)} className="border-white/10 bg-white/5 text-white" />
+        </div>
+        <div className="space-y-1.5">
+          <Label className="flex items-center gap-2 text-sm font-medium text-white/80">
+            <Clock className="h-3.5 w-3.5 text-[var(--color-accent)]/60" /> {t.birthTime}
+          </Label>
+          <Input type="time" value={time} onChange={(e) => setTime(e.target.value)} className="border-white/10 bg-white/5 text-white" />
+        </div>
+      </div>
+      <div className="space-y-1.5">
+        <Label className="flex items-center gap-2 text-sm font-medium text-white/80">
+          <MapPin className="h-3.5 w-3.5 text-[var(--color-accent)]/60" /> {t.birthPlace}
+        </Label>
+        <PlaceInput value={place} onChange={setPlace} onSelect={onPickPlace} placeholder={t.placePlaceholder} />
+      </div>
+    </div>
+  );
+}
+
+// ─── Partner Form (manual — for users who already know their Nakshatra) ───────
+function ManualPartnerForm({
   label,
   emoji,
   name, setName,
@@ -263,13 +389,24 @@ function PartnerForm({
 
 // ─── Main Page ───────────────────────────────────────────────────────────────
 export default function CompatibilityPage() {
-  // Partner 1 state
+  // Input mode: default = birth details (auto-computes nakshatra/rashi); manual = user knows their nakshatra.
+  const [manualMode, setManualMode] = useState(false);
+
+  // Partner 1 — name + birth details (default) + manual nakshatra/rashi (fallback)
   const [p1Name, setP1Name] = useState("");
+  const [p1Dob, setP1Dob] = useState("");
+  const [p1Time, setP1Time] = useState("");
+  const [p1Place, setP1Place] = useState("");
+  const [p1Coords, setP1Coords] = useState<{ lat: number; lon: number } | null>(null);
   const [p1Nakshatra, setP1Nakshatra] = useState("");
   const [p1Rashi, setP1Rashi] = useState("");
 
-  // Partner 2 state
+  // Partner 2 — same
   const [p2Name, setP2Name] = useState("");
+  const [p2Dob, setP2Dob] = useState("");
+  const [p2Time, setP2Time] = useState("");
+  const [p2Place, setP2Place] = useState("");
+  const [p2Coords, setP2Coords] = useState<{ lat: number; lon: number } | null>(null);
   const [p2Nakshatra, setP2Nakshatra] = useState("");
   const [p2Rashi, setP2Rashi] = useState("");
 
@@ -306,9 +443,9 @@ export default function CompatibilityPage() {
 
   const t = L[lang];
 
-  const canSubmit =
-    p1Name.trim() && p1Nakshatra && p1Rashi &&
-    p2Name.trim() && p2Nakshatra && p2Rashi;
+  const canSubmit = manualMode
+    ? !!(p1Name.trim() && p1Nakshatra && p1Rashi && p2Name.trim() && p2Nakshatra && p2Rashi)
+    : !!(p1Name.trim() && p1Dob && p1Time && p1Coords && p2Name.trim() && p2Dob && p2Time && p2Coords);
 
   async function handleCheck() {
     if (!canSubmit) return;
@@ -316,16 +453,19 @@ export default function CompatibilityPage() {
     setError(null);
     setResult(null);
     try {
-      const partner1: PartnerDetails = {
-        fullName: p1Name.trim(),
-        nakshatra: p1Nakshatra,
-        rashi: p1Rashi,
-      };
-      const partner2: PartnerDetails = {
-        fullName: p2Name.trim(),
-        nakshatra: p2Nakshatra,
-        rashi: p2Rashi,
-      };
+      let partner1: PartnerDetails;
+      let partner2: PartnerDetails;
+      if (manualMode) {
+        partner1 = { fullName: p1Name.trim(), nakshatra: p1Nakshatra, rashi: p1Rashi };
+        partner2 = { fullName: p2Name.trim(), nakshatra: p2Nakshatra, rashi: p2Rashi };
+      } else {
+        if (!p1Coords || !p2Coords) { setError(t.needPlace); return; }
+        // Auto-compute each partner's Moon nakshatra + rashi from birth details.
+        const c1 = computeBirthChart({ dateOfBirth: p1Dob, timeOfBirth: p1Time, latitude: p1Coords.lat, longitude: p1Coords.lon });
+        const c2 = computeBirthChart({ dateOfBirth: p2Dob, timeOfBirth: p2Time, latitude: p2Coords.lat, longitude: p2Coords.lon });
+        partner1 = { fullName: p1Name.trim(), nakshatra: c1.keyIndicators.nakshatra, rashi: c1.keyIndicators.rashiEnglish };
+        partner2 = { fullName: p2Name.trim(), nakshatra: c2.keyIndicators.nakshatra, rashi: c2.keyIndicators.rashiEnglish };
+      }
       const data = await checkCompatibility(partner1, partner2);
       setProgress(100);
       await new Promise((r) => setTimeout(r, 400));
@@ -333,11 +473,11 @@ export default function CompatibilityPage() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : "";
       if (msg.includes("429") || msg.toLowerCase().includes("quota") || msg.includes("RESOURCE_EXHAUSTED")) {
-        setError("AI thodi busy hai — kuch der baad dobara try karein.");
+        setError(lang === "hi" ? "AI अभी व्यस्त है — कुछ देर बाद दोबारा प्रयास करें।" : "The AI is busy right now — please try again in a moment.");
       } else if (msg.includes("401") || msg.includes("403")) {
-        setError("AI service abhi unavailable hai. Thodi der baad try karein.");
+        setError(lang === "hi" ? "AI सेवा अभी उपलब्ध नहीं है। थोड़ी देर बाद प्रयास करें।" : "The AI service is currently unavailable. Please try again shortly.");
       } else {
-        setError("Compatibility check nahi ho payi. Internet check karke dobara try karein.");
+        setError(lang === "hi" ? "मिलान नहीं हो पाया। इंटरनेट जांच कर दोबारा प्रयास करें।" : "Couldn't run the match. Check your connection and try again.");
       }
     } finally {
       setLoading(false);
@@ -404,22 +544,60 @@ export default function CompatibilityPage() {
                 </p>
               </div>
 
+              {/* Mode toggle — birth details (default) vs manual nakshatra */}
+              <div className="mb-5 flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setManualMode((m) => !m)}
+                  className="rounded-full border border-[var(--color-accent)]/20 bg-[var(--color-accent)]/5 px-4 py-1.5 text-xs font-medium text-[var(--color-accent)]/90 transition-colors hover:bg-[var(--color-accent)]/10"
+                >
+                  {manualMode ? `↩ ${t.useBirthDetails}` : `${t.knowNakshatra} →`}
+                </button>
+              </div>
+
               {/* Two partner forms */}
               <div className="grid gap-6 md:grid-cols-2">
-                <PartnerForm
-                  label={t.partner1} emoji="🤵"
-                  name={p1Name} setName={setP1Name}
-                  nakshatra={p1Nakshatra} setNakshatra={pickP1Nakshatra}
-                  rashi={p1Rashi} setRashi={setP1Rashi}
-                  t={t} lang={lang}
-                />
-                <PartnerForm
-                  label={t.partner2} emoji="👰"
-                  name={p2Name} setName={setP2Name}
-                  nakshatra={p2Nakshatra} setNakshatra={pickP2Nakshatra}
-                  rashi={p2Rashi} setRashi={setP2Rashi}
-                  t={t} lang={lang}
-                />
+                {manualMode ? (
+                  <>
+                    <ManualPartnerForm
+                      label={t.partner1} emoji="🤵"
+                      name={p1Name} setName={setP1Name}
+                      nakshatra={p1Nakshatra} setNakshatra={pickP1Nakshatra}
+                      rashi={p1Rashi} setRashi={setP1Rashi}
+                      t={t} lang={lang}
+                    />
+                    <ManualPartnerForm
+                      label={t.partner2} emoji="👰"
+                      name={p2Name} setName={setP2Name}
+                      nakshatra={p2Nakshatra} setNakshatra={pickP2Nakshatra}
+                      rashi={p2Rashi} setRashi={setP2Rashi}
+                      t={t} lang={lang}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <BirthPartnerForm
+                      label={t.partner1} emoji="🤵"
+                      name={p1Name} setName={setP1Name}
+                      dob={p1Dob} setDob={setP1Dob}
+                      time={p1Time} setTime={setP1Time}
+                      place={p1Place}
+                      setPlace={(v) => { setP1Place(v); setP1Coords(null); }}
+                      onPickPlace={(p) => { setP1Place(p.displayName.split(",").slice(0, 3).join(",")); setP1Coords({ lat: p.latitude, lon: p.longitude }); }}
+                      t={t}
+                    />
+                    <BirthPartnerForm
+                      label={t.partner2} emoji="👰"
+                      name={p2Name} setName={setP2Name}
+                      dob={p2Dob} setDob={setP2Dob}
+                      time={p2Time} setTime={setP2Time}
+                      place={p2Place}
+                      setPlace={(v) => { setP2Place(v); setP2Coords(null); }}
+                      onPickPlace={(p) => { setP2Place(p.displayName.split(",").slice(0, 3).join(",")); setP2Coords({ lat: p.latitude, lon: p.longitude }); }}
+                      t={t}
+                    />
+                  </>
+                )}
               </div>
 
               {/* Error */}

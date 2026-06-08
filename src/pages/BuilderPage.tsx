@@ -1,4 +1,4 @@
-import { useEffect, useState, useId, cloneElement, Children, type ReactElement, type ReactNode } from "react";
+import { useEffect, useState, useRef, useId, cloneElement, Children, type ReactElement, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm, Controller, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,14 +21,18 @@ import {
   Trash2,
   Camera,
   Upload,
+  Save,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 
+import { SignInButton } from "@clerk/clerk-react";
 import { useBuilderStore } from "@/store/builderStore";
 import { useAuthStore } from "@/store/authStore";
+import { useBiodata } from "@/hooks/useBiodata";
+import { CLERK_ENABLED } from "@/hooks/useAuth";
 import {
   personalInfoSchema,
   careerInfoSchema,
@@ -38,7 +42,7 @@ import {
 } from "@/utils/validators";
 import { defaultTemplates } from "@/utils/templateConfig";
 import type { z } from "zod";
-import type { Community, PersonalInfo, CareerInfo, FamilyInfo, AboutInfo } from "@/types/biodata.types";
+import type { PersonalInfo, CareerInfo, FamilyInfo, AboutInfo } from "@/types/biodata.types";
 
 // ─── Types ──────────────────────────────────────────────────────────────────
 type PersonalForm = z.infer<typeof personalInfoSchema>;
@@ -59,15 +63,6 @@ const STEPS = [
 
 // suppress unused-import warning (defaultTemplates is kept for potential future use)
 void defaultTemplates;
-
-const COMMUNITIES: { value: Community; label: string; icon: string }[] = [
-  { value: "hindu", label: "Hindu", icon: "🕉️" },
-  { value: "muslim", label: "Muslim", icon: "☪️" },
-  { value: "christian", label: "Christian", icon: "✝️" },
-  { value: "sikh", label: "Sikh", icon: "☬" },
-  { value: "jain", label: "Jain", icon: "🪷" },
-  { value: "buddhist", label: "Buddhist", icon: "☸️" },
-];
 
 const BLOOD_GROUPS = ["A+", "A−", "B+", "B−", "AB+", "AB−", "O+", "O−"];
 const HEIGHTS = ["4'8\"","4'9\"","4'10\"","4'11\"","5'0\"","5'1\"","5'2\"","5'3\"","5'4\"","5'5\"","5'6\"","5'7\"","5'8\"","5'9\"","5'10\"","5'11\"","6'0\"","6'1\"","6'2\"","6'3\""];
@@ -294,7 +289,7 @@ function PhotoUploader({
     e.target.value = "";
     if (!file) return;
     if (!file.type.startsWith("image/")) {
-      setErr("Sirf image file upload karein (JPG, PNG, WEBP).");
+      setErr("Please upload an image file (JPG, PNG, WEBP).");
       return;
     }
     if (file.size > 5 * 1024 * 1024) {
@@ -307,7 +302,7 @@ function PhotoUploader({
       const small = await downscale(reader.result as string);
       onChange(small);
     };
-    reader.onerror = () => setErr("Photo padhne mein dikkat hui. Dobara koshish karein.");
+    reader.onerror = () => setErr("Couldn't read that photo. Please try again.");
     reader.readAsDataURL(file);
   }
   return (
@@ -326,7 +321,7 @@ function PhotoUploader({
               onError={() => {
                 // Stale/corrupt stored value (e.g. old localStorage) — clear so the
                 // upload placeholder shows instead of a broken-image icon.
-                setErr("Pichhli photo load nahi hui — dobara upload karein.");
+                setErr("That photo didn't load — please upload it again.");
                 onChange("");
               }}
             />
@@ -420,34 +415,13 @@ function Step1Personal({ onNext }: { onNext: () => void }) {
         />
       </div>
 
-      {/* Community Selector */}
-      <div className="space-y-2">
-        <Label className="text-white/80">Community *</Label>
-        <Controller
-          name="community"
-          control={control}
-          render={({ field }) => (
-            <div className="grid grid-cols-3 gap-2 md:grid-cols-6">
-              {COMMUNITIES.map((c) => (
-                <button
-                  key={c.value}
-                  type="button"
-                  onClick={() => field.onChange(c.value)}
-                  className={`flex flex-col items-center gap-1 rounded-xl border p-3 text-xs transition-all ${
-                    field.value === c.value
-                      ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10 text-[var(--color-accent)]"
-                      : "border-white/10 bg-white/5 text-white/60 hover:border-white/30"
-                  }`}
-                >
-                  <span className="text-xl">{c.icon}</span>
-                  <span>{c.label}</span>
-                </button>
-              ))}
-            </div>
-          )}
-        />
-        {errors.community && <p className="text-xs text-[var(--color-error)]">{errors.community.message}</p>}
-      </div>
+      {/*
+        Religion picker removed: the portal is Hindu-only for now (gated by
+        ENABLED_COMMUNITIES in src/utils/communityFields.ts). `community` stays
+        "hindu" via the store-backed form defaultValues, so the Hindu fields
+        block below renders directly. Re-add a picker here when more communities
+        are enabled.
+      */}
 
       <div className="grid gap-4 md:grid-cols-2">
         <Field label="Full Name *" error={errors.fullName?.message}>
@@ -592,7 +566,7 @@ function Step1Personal({ onNext }: { onNext: () => void }) {
       {/* Community-specific fields */}
       {community === "hindu" && (
         <div className="grid gap-4 rounded-xl border border-orange-500/20 bg-orange-500/5 p-4 md:grid-cols-2">
-          <p className="col-span-2 text-xs font-semibold text-orange-400">🕉️ Hindu-specific Details</p>
+          <p className="col-span-2 text-xs font-semibold text-orange-400">🕉️ Hindu Details</p>
           <Field label="Caste" error={errors.caste?.message}>
             <Input placeholder="e.g. Brahmin" className="bg-white/5 text-white" {...register("caste")} />
           </Field>
@@ -644,6 +618,11 @@ function Step1Personal({ onNext }: { onNext: () => void }) {
         </div>
       )}
 
+      {/*
+        Non-Hindu community field blocks below are dormant: `community` is gated
+        to "hindu" (ENABLED_COMMUNITIES), so these never render today. Kept intact
+        so re-enabling a community is just adding it to ENABLED_COMMUNITIES + a picker.
+      */}
       {community === "muslim" && (
         <div className="grid gap-4 rounded-xl border border-green-500/20 bg-green-500/5 p-4 md:grid-cols-2">
           <p className="col-span-2 text-xs font-semibold text-green-400">☪️ Muslim-specific Details</p>
@@ -1184,7 +1163,6 @@ function Step4About({ onNext, onPrev }: { onNext: () => void; onPrev: () => void
               onChange={field.onChange}
               options={[
                 { value: "vegetarian", label: "Vegetarian" },
-                { value: "jain_vegetarian", label: "Jain Vegetarian" },
                 { value: "eggetarian", label: "Eggetarian" },
                 { value: "occasionally_non_veg", label: "Occasionally Non-Veg" },
                 { value: "non_vegetarian", label: "Non-Vegetarian" },
@@ -1428,11 +1406,17 @@ type TemplateId = (typeof TEMPLATE_OPTIONS)[number]["id"];
 function Step6Preview({ onPrev }: { onPrev: () => void }) {
   const store  = useBuilderStore();
   const { user } = useAuthStore();
+  const { saveBiodata } = useBiodata();
   const [pageImages, setPageImages] = useState<string[]>([]);
   const [rendering, setRendering] = useState(true);
   const [paying, setPaying]       = useState(false);
   const [pdfError, setPdfError]   = useState<string | null>(null);
   const [selectedTpl, setSelectedTpl] = useState<TemplateId>("tpl_brown_01");
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  const [saveError, setSaveError]   = useState<string | null>(null);
+  // Set right before opening the sign-in modal so we auto-save once Clerk
+  // signs the user in and the auth store updates (see effect below).
+  const wantSaveRef = useRef(false);
 
   const formData = {
     personal: store.personal,
@@ -1479,11 +1463,45 @@ function Step6Preview({ onPrev }: { onPrev: () => void }) {
       downloadBlob(blob, `${store.personal.fullName.replace(/ /g, "_")}_Biodata.pdf`);
     } catch (err) {
       console.error("PDF download failed:", err);
-      setPdfError("PDF banane mein dikkat aayi — dobara try karein.");
+      setPdfError("Couldn't create the PDF — please try again.");
     } finally {
       setPaying(false);
     }
   }
+
+  async function handleSave() {
+    setSaveStatus("saving");
+    setSaveError(null);
+    try {
+      const title = store.personal.fullName
+        ? `${store.personal.fullName}'s Biodata`
+        : "My Biodata";
+      const saved = await saveBiodata.mutateAsync({
+        id: store.savedId ?? undefined,
+        title,
+        community: store.personal.community,
+        templateId: selectedTpl,
+        formData,
+        aiEnhanced: false,
+      });
+      store.setSavedId(saved.id);
+      store.markSaved();
+      setSaveStatus("saved");
+    } catch (err) {
+      console.error("Biodata save failed:", err);
+      setSaveStatus("error");
+      setSaveError(err instanceof Error ? err.message : "Couldn't save — please try again.");
+    }
+  }
+
+  // After the user signs in via the modal, auto-run the save they intended.
+  useEffect(() => {
+    if (user && wantSaveRef.current) {
+      wantSaveRef.current = false;
+      void handleSave();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   return (
     <div className="space-y-8">
@@ -1617,7 +1635,7 @@ function Step6Preview({ onPrev }: { onPrev: () => void }) {
       )}
 
       {/* Action buttons */}
-      <div className="flex gap-3">
+      <div className="flex flex-col gap-3 sm:flex-row">
         <Button
           variant="outline"
           onClick={onPrev}
@@ -1625,6 +1643,34 @@ function Step6Preview({ onPrev }: { onPrev: () => void }) {
         >
           <ChevronLeft className="mr-1 h-4 w-4" /> Back
         </Button>
+
+        {/* Save to account — Clerk-gated. Signed-in users save directly; others
+            sign in via a modal (stays on /builder) and the save auto-runs. */}
+        {user ? (
+          <Button
+            variant="outline"
+            onClick={handleSave}
+            disabled={saveStatus === "saving"}
+            className="border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+          >
+            {saveStatus === "saving" ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Saving…</>
+            ) : (
+              <><Save className="mr-2 h-4 w-4" /> {store.savedId ? "Update saved" : "Save to my account"}</>
+            )}
+          </Button>
+        ) : CLERK_ENABLED ? (
+          <SignInButton mode="modal" forceRedirectUrl="/builder">
+            <Button
+              variant="outline"
+              onClick={() => { wantSaveRef.current = true; }}
+              className="border-[var(--color-accent)]/30 bg-[var(--color-accent)]/5 text-[var(--color-accent)] hover:bg-[var(--color-accent)]/10"
+            >
+              <Save className="mr-2 h-4 w-4" /> Sign in to save
+            </Button>
+          </SignInButton>
+        ) : null}
+
         <motion.div className="flex-1" whileHover={{ scale: 1.01 }} whileTap={{ scale: 0.98 }}>
           <Button
             size="lg"
@@ -1641,12 +1687,26 @@ function Step6Preview({ onPrev }: { onPrev: () => void }) {
         </motion.div>
       </div>
 
+      {/* Save feedback */}
+      {saveStatus === "saved" && (
+        <div className="flex items-center gap-2 rounded-xl border border-[var(--color-success)]/30 bg-[var(--color-success)]/10 px-4 py-3 text-sm text-[var(--color-success)]">
+          <Check className="h-4 w-4 shrink-0" />
+          <span className="flex-1">Saved to your account.</span>
+          <Link to="/dashboard" className="font-semibold underline hover:text-white">View in Dashboard</Link>
+        </div>
+      )}
+      {saveStatus === "error" && saveError && (
+        <div className="flex items-center gap-2 rounded-lg border border-[var(--color-error)]/40 bg-[var(--color-error)]/10 px-4 py-2.5 text-sm text-[var(--color-error)]">
+          <span>⚠</span>
+          <span className="flex-1">{saveError}</span>
+          <button type="button" onClick={() => setSaveStatus("idle")} className="opacity-60 hover:opacity-100">✕</button>
+        </div>
+      )}
+
       {!user && (
         <div className="flex items-center gap-2 rounded-xl border border-[var(--color-indigo)]/20 bg-[var(--color-indigo)]/5 px-4 py-3 text-sm text-[var(--color-indigo)]">
           <Sparkles className="h-4 w-4 shrink-0" />
-          <span>
-            <Link to="/auth" className="font-semibold underline hover:text-white">Sign in</Link> to save this biodata and re-download anytime.
-          </span>
+          <span>Sign in to save this biodata to your account and re-download it anytime.</span>
         </div>
       )}
     </div>

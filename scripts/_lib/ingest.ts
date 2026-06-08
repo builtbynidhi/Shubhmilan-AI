@@ -2,14 +2,14 @@
  * Shared KB ingestion core (dev-time, Node — NOT the browser bundle).
  *
  * Reads a curated knowledge folder (manifest.json + chunk files, plus any
- * user-provided files in <dir>/sources/), embeds each chunk with OpenAI
- * text-embedding-3-small (1536-d), and upserts into the matching Neon pgvector
+ * user-provided files in <dir>/sources/), embeds each chunk with Google Gemini
+ * (gemini-embedding-001 @1536-d), and upserts into the matching Neon pgvector
  * table via Drizzle. Safe to re-run — upserts by `id`.
  *
  * Used by scripts/ingest-palmistry.ts and scripts/ingest-astrology.ts.
  *
  * Required env (server-side secrets — NEVER VITE_-prefixed):
- *   OPENAI_API_KEY   — embedding key
+ *   GEMINI_API_KEY   — embedding key (free, from aistudio.google.com)
  *   DATABASE_URL     — Neon connection string (pooled or direct both work)
  */
 
@@ -49,7 +49,7 @@ interface KbChunk {
   source: string;
 }
 
-const EMBEDDING_MODEL = "text-embedding-3-small";
+const EMBEDDING_MODEL = process.env.GEMINI_EMBED_MODEL || "gemini-embedding-001";
 const EMBEDDING_DIMENSIONS = 1536;
 const BATCH_SIZE = 64;
 
@@ -113,22 +113,46 @@ function embeddingTextFor(c: KbChunk): string {
   return [c.feature_key, c.qualifier, c.text_en].filter(Boolean).join(" — ");
 }
 
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
 async function embedBatch(apiKey: string, inputs: string[]): Promise<number[][]> {
-  const res = await fetch("https://api.openai.com/v1/embeddings", {
-    method: "POST",
-    headers: { "Content-Type": "application/json", Authorization: `Bearer ${apiKey}` },
-    body: JSON.stringify({ model: EMBEDDING_MODEL, input: inputs, dimensions: EMBEDDING_DIMENSIONS }),
-  });
-  if (!res.ok) {
+  // Gemini free tier caps embed_content at ~100 requests/minute. On a 429 we
+  // honour the server's retryDelay and retry, so large KBs ingest reliably.
+  for (let attempt = 0; ; attempt++) {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/${EMBEDDING_MODEL}:batchEmbedContents?key=${apiKey}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          requests: inputs.map((text) => ({
+            model: `models/${EMBEDDING_MODEL}`,
+            content: { parts: [{ text }] },
+            outputDimensionality: EMBEDDING_DIMENSIONS,
+          })),
+        }),
+      }
+    );
+
+    if (res.ok) {
+      const json = (await res.json()) as { embeddings: { values: number[] }[] };
+      return json.embeddings.map((e) => e.values);
+    }
+
     const err = await res.text();
-    throw new Error(`OpenAI embeddings error ${res.status}: ${err}`);
+    if (res.status === 429 && attempt < 6) {
+      const m = err.match(/"retryDelay":\s*"(\d+)s"/);
+      const waitS = (m ? parseInt(m[1], 10) : 30) + 2;
+      console.log(`  rate limit hit — waiting ${waitS}s then retrying (attempt ${attempt + 1})…`);
+      await sleep(waitS * 1000);
+      continue;
+    }
+    throw new Error(`Gemini embeddings error ${res.status}: ${err}`);
   }
-  const json = (await res.json()) as { data: { embedding: number[] }[] };
-  return json.data.map((d) => d.embedding);
 }
 
 export async function runIngest(domain: IngestDomain, kbDir: string): Promise<void> {
-  const openaiKey = requireEnv("OPENAI_API_KEY");
+  const geminiKey = requireEnv("GEMINI_API_KEY");
   const databaseUrl = requireEnv("DATABASE_URL");
 
   // Both KB tables share the same column shape; narrow to one for Drizzle's types.
@@ -148,7 +172,7 @@ export async function runIngest(domain: IngestDomain, kbDir: string): Promise<vo
   let done = 0;
   for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
     const batch = chunks.slice(i, i + BATCH_SIZE);
-    const embeddings = await embedBatch(openaiKey, batch.map(embeddingTextFor));
+    const embeddings = await embedBatch(geminiKey, batch.map(embeddingTextFor));
     const rows = batch.map((c, j) => ({
       id: c.id,
       category: c.category,

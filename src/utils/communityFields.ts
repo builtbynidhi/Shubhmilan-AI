@@ -69,3 +69,9 @@ export const allCommunities: Community[] = [
   "jain",
   "buddhist",
 ];
+
+// Communities actually live on the portal right now. The whole app (builder
+// religion picker, validators) is gated on this list — everything above stays
+// defined but dormant. To expand to more religions later, just add them here,
+// e.g. ["hindu", "sikh", "jain"]. This is the single switch.
+export const ENABLED_COMMUNITIES: Community[] = ["hindu"];

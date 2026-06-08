@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import type {
+  Biodata,
   Community,
   PersonalInfo,
   CareerInfo,
@@ -18,6 +19,8 @@ interface BuilderStore {
   contact: ContactInfo;
   selectedTemplateId: string;
   lastSavedAt: string | null;
+  /** id of the backend `biodatas` row this draft maps to (null = not yet saved). */
+  savedId: string | null;
   setStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
@@ -28,6 +31,9 @@ interface BuilderStore {
   updateContact: (data: Partial<ContactInfo>) => void;
   setSelectedTemplate: (templateId: string) => void;
   markSaved: () => void;
+  setSavedId: (id: string | null) => void;
+  /** Hydrate the builder from a saved backend biodata (for Open/Edit). */
+  loadBiodata: (biodata: Biodata) => void;
   resetBuilder: () => void;
 }
 
@@ -103,6 +109,7 @@ export const useBuilderStore = create<BuilderStore>()(
       contact: defaultContact,
       selectedTemplateId: "tpl_red_01",
       lastSavedAt: null,
+      savedId: null,
 
       setStep: (step) => set({ currentStep: step }),
       nextStep: () =>
@@ -145,6 +152,22 @@ export const useBuilderStore = create<BuilderStore>()(
       markSaved: () =>
         set({ lastSavedAt: new Date().toISOString() }),
 
+      setSavedId: (id) => set({ savedId: id }),
+
+      loadBiodata: (biodata) =>
+        set((state) => ({
+          personal: biodata.formData.personal,
+          career: biodata.formData.career,
+          family: biodata.formData.family,
+          about: biodata.formData.about,
+          contact: biodata.formData.contact,
+          selectedTemplateId:
+            biodata.formData.templateId || state.selectedTemplateId,
+          savedId: biodata.id,
+          currentStep: 6,
+          lastSavedAt: biodata.updatedAt ?? null,
+        })),
+
       resetBuilder: () =>
         set({
           currentStep: 1,
@@ -155,6 +178,7 @@ export const useBuilderStore = create<BuilderStore>()(
           contact: defaultContact,
           selectedTemplateId: "tpl_red_01",
           lastSavedAt: null,
+          savedId: null,
         }),
     }),
     {
@@ -168,6 +192,7 @@ export const useBuilderStore = create<BuilderStore>()(
         contact: state.contact,
         selectedTemplateId: state.selectedTemplateId,
         lastSavedAt: state.lastSavedAt,
+        savedId: state.savedId,
       }),
     }
   )

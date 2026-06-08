@@ -19,9 +19,12 @@ export function useKundli(kundliId?: string) {
     enabled: !!kundliId,
   });
 
+  // The /api/kundlis POST also accepts the computed chart + AI explanation, so
+  // a saved kundli round-trips with its full data (not just birth details).
   const createKundli = useMutation({
-    mutationFn: (formData: KundliFormData) =>
-      apiFetch<Kundli>("/api/kundlis", { method: "POST", body: formData }),
+    mutationFn: (
+      input: KundliFormData & { kundli_data?: unknown; ai_explanation?: string }
+    ) => apiFetch<Kundli>("/api/kundlis", { method: "POST", body: input }),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ["kundlis", user?.id] });
     },
