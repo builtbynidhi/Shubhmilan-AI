@@ -6,6 +6,10 @@
 </p>
 
 <p align="center">
+  <a href="https://shubhmilan-ai.vercel.app"><b>Live demo →</b></a>
+</p>
+
+<p align="center">
   <img src="src/assets/hero-showcase.jpg" alt="Shubhmilan AI showcase" width="760" />
 </p>
 
